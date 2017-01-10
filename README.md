@@ -1,4 +1,4 @@
-# Computer Science Project
+﻿# Computer Science Project
 * Laila Blömer 
 * 10563865
 * Bèta Gamma Bachelor
@@ -16,4 +16,3 @@ The dataset I will visualize displays the activity of different neurons in the b
 
 Furthermore, information will be added about different experiments that were performed to obtain the displayed data. 
 
-## Sketch

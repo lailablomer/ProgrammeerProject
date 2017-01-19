@@ -6,17 +6,54 @@
 var GHG_colors = ['#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026'];
 var population_colors = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#2c7fb8','#253494'];
 var GDP_colors = ['#ffffcc','#d9f0a3','#addd8e','#78c679','#31a354','#006837'];
+var worldmap_colors = [];
+
+var legend_total = [{labels: {
+        'A': "> 4000 Mt",
+        'B': "1000 - 4000 Mt",
+        'C': "500 - 1000 Mt",
+        'D': "100 - 500 Mt",
+        'E': "50 - 100 Mt",
+        'F': "< 50 Mt" }},
+    {labels: {
+        'A': "> 100 MM",
+        'B': "50 - 100 MM",
+        'C': "10 - 50 MM",
+        'D': "1 - 10 MM",
+        'E': "100 - 1000 M",
+        'F': "< 100 Thousand" }},
+    {labels: {
+        'A': "> 10 MM",
+        'B': "1 - 10 MM",
+        'C': "500 - 1000 M",
+        'D': "100 - 500 M",
+        'E': "50 - 100 M",
+        'F': "< 50 Thousand" }}];
+var legend = {};
+
+// pie colors
 var pie_colors = {'GHG': '#1b9e77', 'CO2': '#d95f02', 'CH4': '#7570b3', 'N2O': '#e7298a', 'Rest': '#66a61e'};
 
+// initial variables
 var world_year = 2012;
 var world_data = 'button_GHG';
 var country_id = 'NLD';
 var pie_data = 0;
 
+// table data
+var title = ['Carbon Dioxide', 'Methane', 'Nitrous Oxide'];
+var properties = ['Carbon dioxide is colorless. At low concentrations, the gas is odorless. At higher concentrations it has a sharp, acidic odor.', 'Methane is a tetrahedral molecule with four equivalent C–H bonds. At room temperature and standard pressure, methane is a colorless, odorless gas.', 'At room temperature, it is a colorless, odorless non-flammable gas, with a slightly sweet taste.'];
+var production = ['The combustion of all carbon-based fuels produces carbon dioxide. Also, all aerobic organisms produce CO2 when they oxidize carbohydrates, fatty acids, and proteins.', 'Natural methane is found both below ground and under the sea floor. When it reaches the surface and the atmosphere, it is known as atmospheric methane. Naturally occurring methane is mainly produced by the process of methanogenesis. This multistep process is used by microorganisms as an energy source. ', 'The production of adipic acid is the largest source to nitrous oxide. It specifically arises from the degradation of the nitrolic acid intermediate derived from nitration of cyclohexanone.'];
+var uses = ['Carbon dioxide is used by the food industry, the oil industry, and the chemical industry.', 'Methane is used in industrial chemical processes and may be transported as a refrigerated liquid (liquefied natural gas, or LNG). ', 'It is used in surgery and dentistry for its anaesthetic and analgesic effects. It is known as "laughing gas" due to the euphoric effects of inhaling it, a property that has led to its recreational use as a dissociative anaesthetic. It is also used as an oxidizer in rocket propellants, and in motor racing to increase the power output of engines.'];
+var role = ['Carbon dioxide is an end product of cellular respiration in organisms that obtain energy by breaking down sugars, fats and amino acids with oxygen as part of their metabolism', 'Methane as natural gas has been so abundant that synthetic production of it has been limited to special cases and as of 2016 covers only minor fraction of the methane used.', 'The pharmacological mechanism of action of N2O in medicine is not fully known. However, it has been shown to directly modulate a broad range of ligand-gated ion channels (in the brain), and this likely plays a major role in many of its effects.'];
+var weight = ['44.009 g/mol', '16.04246 g/mol', '44.0128 g/mol'];
+var image = ['http://embed.molview.org/v1/?mode=balls&cid=280&bg=white','http://embed.molview.org/v1/?mode=balls&cid=297&bg=white', 'http://embed.molview.org/v1/?mode=balls&cid=948&bg=white'];
+var image2 = ['images/carbon.png', 'images/methane.png', 'images/oxide.png'];
+
 var map = new Datamap({
     element: document.getElementById('worlddata'),
     projection: 'mercator',
-    width: 700,
+    width: 800,
     geographyConfig: {
         // on hover template:
         // "<style top='+10px'></style>"
@@ -44,24 +81,12 @@ var map = new Datamap({
     fills: {
         // if country is not in data array, use grey as color
         defaultFill: 'grey',
-        '> 4000 Mt': GHG_colors[5],
-        '1000 - 4000 Mt': GHG_colors[4],
-        '500 - 1000 Mt': GHG_colors[3],
-        '100 - 500 Mt': GHG_colors[2],
-        '50 - 100 Mt': GHG_colors[1],
-        '< 50 Mt': GHG_colors[0],
-        '> 100 million': population_colors[5],
-        '50 - 100 million': population_colors[4],
-        '10 - 50 million': population_colors[3],
-        '1 - 10 million': population_colors[2],
-        '100 - 1000 thousand': population_colors[1],
-        '< 100 thousand': population_colors[0],
-        '> 10 million': GDP_colors[5],
-        '1 - 10 millions': GDP_colors[4],
-        '500 - 1000 thousand': GDP_colors[3],
-        '100 - 500 thousand': GDP_colors[2],
-        '50 - 100 thousand': GDP_colors[1],
-        '< 50 thousand': GDP_colors[0]
+        'A': worldmap_colors[5],
+        'B': worldmap_colors[4],
+        'C': worldmap_colors[3],
+        'D': worldmap_colors[2],
+        'E': worldmap_colors[1],
+        'F': worldmap_colors[0]
     }
 });
 
@@ -110,9 +135,9 @@ drawWorldMap(world_data, world_year, country_id);
 // Linegraph
 var dataNest;
 // set the dimensions of the canvas / graph
-var margin = {top: 30, right: 50, bottom: 40, left: 100},
-    width = 1200 - margin.left - margin.right,
-    height = 350 - margin.top - margin.bottom;
+var margin = {top: 30, right: 50, bottom: 40, left: 30},
+    width = 800 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y").parse;
 var bisectDate = d3.bisector(function(d) { return d.year; }).left;
@@ -159,7 +184,7 @@ var svg = d3.select("#linegraph")
               "translate(" + margin.left + "," + margin.top + ")");
 
 // get the linegraph data
-d3.json('data_linegraph.json', function(error, data) {
+d3.json('scripts/data_linegraph.json', function(error, data) {
     data = data.NLD;
     data.forEach(function (d) {
         // console.log(d);
@@ -290,12 +315,15 @@ function pie(){
         height = 300,
         radius = Math.min(width - 400, height) / 2;
 
+    var legendRectSize = 18;
+    var legendSpacing = 4;
+
     // color array
     var pie = d3.layout.pie()
         .sort(null)
         .value(function(d) { return d.value; });
 
-    var svg, g, arc;
+    var svg, g, arc, legend;
     var object = {};
 
     // refreshing chart
@@ -303,7 +331,7 @@ function pie(){
         if(!svg){
             arc = d3.svg.arc()
                 .outerRadius(radius)
-                .innerRadius(radius - (radius/1.5));
+                .innerRadius(radius - (radius/3));
 
             // define svg for pie
             svg = $el.append("svg")
@@ -313,6 +341,8 @@ function pie(){
                 .attr("height", height)
             .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+            // legend = svg.select(".piechart").append("legend");
 
             // define arcs
             g = svg.selectAll(".arc")
@@ -338,6 +368,8 @@ function pie(){
                 .attr("class", "keytext")
                 .attr("x", 150)
                 .attr("y", 10);
+
+            svg.append("g").attr("class", "pie-legend");
 
             // g.select("text").text(function(d) {
             //     return d.data.key; });
@@ -373,6 +405,36 @@ function pie(){
                 svg.select("text.text-tooltip").text("");
                 svg.select("text.keytext").text("");
             });
+
+            g.on("click", function (d) {
+                writeTable(d.data.key, d.data.value)});
+
+            // legend = d3.selectAll('g.pie-legend')
+            //     .data(pie_data)
+            //     .enter()
+            //     .append('g')
+            //     .attr('class', 'legend')
+            //     .attr('transform', function(d, i) {
+            //         var height = legendRectSize + legendSpacing;
+            //         var offset =  height * pie_data.length / 2;
+            //         var horz = -2 * legendRectSize;
+            //         var vert = i * height - offset;
+            //         return 'translate(' + horz + ',' + vert + ')';
+            //     });
+            //
+            // legend.append('rect')
+            //     .attr('width', legendRectSize)
+            //     .attr('height', legendRectSize)
+            //     .each(function (d, i) {
+            //         d3.select('rect')
+            //         .style('fill', pie_colors[i])
+            //         .style('stroke', pie_colors[i])
+            //     });
+            //
+            // legend.append('text')
+            //     .attr('x', legendRectSize + legendSpacing)
+            //     .attr('y', legendRectSize - legendSpacing)
+            //     .text(function(d) { return d; });
 
         }else{
             // remove pie and update
@@ -431,83 +493,127 @@ function pie(){
 }
 
 function drawWorldMap(id, year, country_id) {
-    d3.json("data_file.json", function(error, data) {
+    d3.json("scripts/data_file.json", function(error, data) {
+        data = data[year];
         if (id == 'button_GHG') {
-            for (country in data[year]) {
-                if (data[year][country]['GHG'] > 4000){
-                    data[year][country].fillKey = '> 4000 Mt'
+            for (country in data) {
+                if (data[country]['GHG'] > 4000) {
+                    data[country].fillKey = 'A';
+                    // data[country].fillColor = GHG_colors[5];
                 }
-                else if (data[year][country]['GHG'] > 1000){
-                    data[year][country].fillKey = '1000 - 4000 Mt'
+                else if (data[country]['GHG'] > 1000) {
+                    data[country].fillKey = 'B';
+                    // data[country].fillColor = GHG_colors[4];
                 }
-                else if (data[year][country]['GHG'] > 500){
-                    data[year][country].fillKey = '500 - 1000 Mt'
+                else if (data[country]['GHG'] > 500) {
+                    data[country].fillKey = 'C';
+                    // data[country].fillColor = GHG_colors[3];
                 }
-                else if (data[year][country]['GHG'] > 100){
-                    data[year][country].fillKey = '100 - 500 Mt'
+                else if (data[country]['GHG'] > 100) {
+                    data[country].fillKey = 'D';
+                    // data[country].fillColor = GHG_colors[2];
                 }
-                else if (data[year][country]['GHG'] > 50){
-                    data[year][country].fillKey = '50 - 100 Mt'
+                else if (data[country]['GHG'] > 50) {
+                    data[country].fillKey = 'E';
+                    // data[country].fillColor = GHG_colors[1];
                 }
                 else {
-                    data[year][country].fillKey = '< 50 Mt'
-            }}}
+                    data[country].fillKey = 'F';
+                    // data[country].fillColor = GHG_colors[0];
+                }
+            }
+            worldmap_colors = GHG_colors;
+            legend = legend_total[0];
+        }
         else if (id == 'button_Population') {
-            for (country in data[year]) {
-                if (data[year][country]['population'] > 100000000){
-                    data[year][country].fillKey = '> 100 million'
+            for (country in data) {
+                if (data[country]['population'] > 100000000) {
+                    data[country].fillKey = 'A'
                 }
-                else if (data[year][country]['population'] > 50000000){
-                    data[year][country].fillKey = '50 - 100 million'
+                else if (data[country]['population'] > 50000000) {
+                    data[country].fillKey = 'B'
                 }
-                else if (data[year][country]['population'] > 10000000){
-                    data[year][country].fillKey = '10 - 50 million'
+                else if (data[country]['population'] > 10000000) {
+                    data[country].fillKey = 'C'
                 }
-                else if (data[year][country]['population'] > 5000000){
-                    data[year][country].fillKey = '1 - 10 million'
+                else if (data[country]['population'] > 5000000) {
+                    data[country].fillKey = 'D'
                 }
-                else if (data[year][country]['population'] > 100000){
-                    data[year][country].fillKey = '100 - 1000 thousand'
+                else if (data[country]['population'] > 100000) {
+                    data[country].fillKey = 'E'
                 }
                 else {
-                    data[year][country].fillKey = '< 100 thousand'
+                    data[country].fillKey = 'F'
                 }
-            }}
+            }
+            worldmap_colors = population_colors;
+            legend = legend_total[1];
+        }
         else {
-            for (country in data[year]) {
-                if (data[year][country]['GDP'] > 10000000){
-                    data[year][country].fillKey = '> 10 million'
+            for (country in data) {
+                if (data[country]['GDP'] > 10000000) {
+                    data[country].fillKey = 'A'
                 }
-                else if (data[year][country]['GDP'] > 1000000){
-                    data[year][country].fillKey = '1 - 10 millions'
+                else if (data[country]['GDP'] > 1000000) {
+                    data[country].fillKey = 'B'
                 }
-                else if (data[year][country]['GDP'] > 500000){
-                    data[year][country].fillKey = '500 - 1000 thousand'
+                else if (data[country]['GDP'] > 500000) {
+                    data[country].fillKey = 'C'
                 }
-                else if (data[year][country]['GDP'] > 100000){
-                    data[year][country].fillKey = '100 - 500 thousand'
+                else if (data[country]['GDP'] > 100000) {
+                    data[country].fillKey = 'D'
                 }
-                else if (data[year][country]['GDP'] > 50000){
-                    data[year][country].fillKey = '50 - 100 thousand'
+                else if (data[country]['GDP'] > 50000) {
+                    data[country].fillKey = 'E'
                 }
                 else {
-                    data[year][country].fillKey = '< 50 thousand'
-                }}
+                    data[country].fillKey = 'F'
+                }
+            }
+            worldmap_colors = GDP_colors;
+            legend = legend_total[2];
+            console.log(worldmap_colors);
         }
 
-        // data = data[2012];
-        map.updateChoropleth(data[year]);
-        // map.updatePopup();
-        // map.legend();
+        for (key in data) {
+            if (data[key].fillKey == 'A') {
+                data[key].fillColor = worldmap_colors[5]
+            }
+            if (data[key].fillKey == 'B') {
+                data[key].fillColor = worldmap_colors[4]
+            }
+            if (data[key].fillKey == 'C') {
+                data[key].fillColor = worldmap_colors[3]
+            }
+            if (data[key].fillKey == 'D') {
+                data[key].fillColor = worldmap_colors[2]
+            }
+            if (data[key].fillKey == 'E') {
+                data[key].fillColor = worldmap_colors[1]
+            }
+            if (data[key].fillKey == 'F') {
+                data[key].fillColor = worldmap_colors[0]
+            }
+        }
+        map.updateChoropleth(data);
 
-        chart.data(getData(data[year], country_id)).render();
-        d3.select("#pie").transition().duration(500).select("h2").text(data[year][country_id].country + " - " + year);
+        // update legend
+        d3.select(".datamaps-legend").remove();
+        map.legend(legend);
+        d3.selectAll(".datamaps-legend dd")
+            .each(function(d, i) {
+                d3.select(this)
+                    .style("background-color", worldmap_colors[5 - i])
+            });
+
+        chart.data(getData(data, country_id)).render();
+        d3.select("#pie").transition().duration(500).select("h2").text(data[country_id].country + " - " + year);
 
         map.svg.selectAll('.datamaps-subunit').on('click', function(d) {
             country_id = d.id;
-            d3.select("#pie").transition().duration(500).select("h2").text(data[year][country_id].country + " - " + year);
+            d3.select("#pie").transition().duration(500).select("h2").text(data[country_id].country + " - " + year);
             drawLinegraph(d.id);
-            chart.data(getData(data[year], country_id)).render();
+            chart.data(getData(data, country_id)).render();
         });
     });
 }
@@ -569,7 +675,7 @@ function mousemove() {
 
 function drawLinegraph(id) {
     // console.log(id);
-    d3.json('data_linegraph.json', function(error, data) {
+    d3.json('scripts/data_linegraph.json', function(error, data) {
         // console.log(data.NLD);
         for (var key in data) {
             if (key == id) {
@@ -609,4 +715,30 @@ function drawLinegraph(id) {
         // change interactive rectangle
         d3.select("rect").on("mousemove", mousemove);
     });
+}
+
+function writeTable(key, value){
+    var index = 0;
+    if (key == 'CH4') {
+        index = 1;
+        // d3.select('img').transition().attr('src', 'images/CH4.jpg')
+    }
+    else if (key == 'N2O') {
+        index = 2;
+        // d3.select('img').transition().attr('src', 'images/N2O.png')
+    }
+    else if (key == 'Rest') { exit() }
+    // else { d3.select('img').transition().attr('src', 'images/CO2.png') }
+
+    d3.select("h2#title").transition().text(' ' + title[index]);
+    d3.select("td#formula").transition().text(' ' + key);
+    d3.select("td#weight").transition().text(' ' + weight[index]);
+    d3.select("td#amount").transition().text(' ' + Math.round(value) + ' Mt');
+    d3.select("td#properties").transition().text(' ' + properties[index]);
+    d3.select("td#production").transition().text(' ' + production[index]);
+    d3.select("td#role").transition().text(' ' + role[index]);
+    d3.select("td#uses").transition().text(' ' + uses[index]);
+
+    d3.select("iframe").transition().duration(300).attr('src', image[index]);
+    d3.select("img").transition().attr('src', image2[index]);
 }

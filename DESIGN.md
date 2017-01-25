@@ -1,7 +1,7 @@
 # Design
-* Laila Blömer 
+* Laila BlÃ¶mer 
 * 10563865
-* Bèta Gamma Bachelor
+* BÃ¨ta Gamma Bachelor
 * Minor Programmeren fall 2017
 
 # Graphs
@@ -31,14 +31,14 @@ Bootstrap is used to:
 # HTML
 The html page will contain a header (with title), footer (with my name, student number), and container (div containing all other elements). In the container div all other div's will be named, according to:
 * div for the worldmap (in svg), containing:
-** svg with Datamap
-** D3 slider (div)
-** Three buttons
++ svg with Datamap
++ D3 slider (div)
++ Three buttons
 * div for the piechart, with:
-** svg for piechart
-** Table with country information
++ svg for piechart
++ Table with country information
 * div for linegraph:
-** svg for multi-linegraph
++ svg for multi-linegraph
 * div for additional information
-** svg with molecule graph
++ svg with molecule graph
 ** Table with gas information

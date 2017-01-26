@@ -1,6 +1,14 @@
 
+#gas_info {
+    position: relative;
+    width: 100%;
+    border: 1px solid gray;
+    height: 700px;
+    margin-top: 10px;
+}
+
 #molecule {
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 
@@ -23,3 +31,30 @@
   pointer-events: none;
 }
 
+h3#title {
+    left: 50px;
+}
+
+table#gas-table {
+    position: relative;
+    width: 80%;
+    top: 10px;
+    left: 50px;
+}
+
+/*iframe {*/
+    /*move-to: back;*/
+    /*z-index: 1;*/
+    /*position: absolute;*/
+    /*bottom: -100px;*/
+    /*left: -150px;*/
+    /*zoom: 2.5;*/
+    /*background-color: transparent;*/
+/*}*/
+
+/*img {*/
+    /*position: absolute;*/
+    /*bottom: -50px;*/
+    /*left: 120px;*/
+    /*zoom: 0.4;*/
+/*}*/

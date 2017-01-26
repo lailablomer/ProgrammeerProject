@@ -1,0 +1,64 @@
+
+#multi_linegraph {
+    position: relative;
+    margin-top: 10px;
+    /*margin-right: 20px;*/
+    width: 100%;
+    height: 350px;
+    border: 1px solid gray;
+    z-index: 2;
+}
+
+h3#linegraph-title {
+    left: 10%;
+    top: 0;
+}
+
+#linegraph {
+    position: absolute;
+    left: 3%;
+    top: 20px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.line {
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+/*.focus circle {*/
+  /*fill: none;*/
+  /*stroke: blue;*/
+/*}*/
+
+.xline,
+.yline {
+    stroke: black;
+    stroke-dasharray: 3.3;
+    opacity: 0.5;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 120px;
+    height: 100px;
+    padding: 1px;
+    font: bold 12px sans-serif;
+    background: whitesmoke;
+    border: 0;
+    border-radius: 8px;
+pointer-events: none;
+}

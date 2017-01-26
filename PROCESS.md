@@ -49,3 +49,8 @@ Fixing bugs!
 * The annoying ',' seperator in the years at my slider are gone!
 * Arc labels of the piechart do not overlap anymore
 * Hoverover elements of the linegraph do not overlap anymore; I changed the crosshair-text to be displayed in a rectangle at a constant x-value (instead of being displayed at the actual datapoint)
+
+# day 14
+* Fixing bootstrap > making better use of rows and columns, this fixes most of the scaling problem. 
+* Cleaning up code: different stylesheets for the different columns on the page, and creating a separate js file with functions.
+* on-click event in the linegraph: clicking a gas in the legend will change the information displayed in the info table, and the molecule visualization.

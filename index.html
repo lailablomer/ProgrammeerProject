@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="css/d3.slider.css">
     <link rel="stylesheet" type="text/css" href="css/project.css"/>
     <link rel="stylesheet" type="text/css" href="css/molecule.css"/>
+    <link rel="stylesheet" type="text/css" href="css/linegraph.css"/>
+    <link rel="stylesheet" type="text/css" href="css/piechart.css"/>
+    <link rel="stylesheet" type="text/css" href="css/worldmap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 
@@ -19,84 +22,119 @@
 
 </head>
 <body>
-    <header>GREENHOUSE GAS EMISSIONS</header>
     <div id="container" class="container-fluid">
         <div class="row">
-            <div id="worlddata" class="col-md-10">
-                <button type="button" class="button" id="button_GHG">Green House Gases</button>
-                <button type="button" class="button" id="button_Population">Population</button>
-                <button type="button" class="button" id="button_GDP">Gross Domestic Product</button>
-                <div id="slider"></div>
+            <header>GREENHOUSE GAS EMISSIONS</header>
+        </div>
+        <div class="row">
+
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="row" id="worlddata-row">
+                    <div class="row">
+                        <button type="button" class="button" id="button_GHG">Green House Gases</button>
+                        <button type="button" class="button" id="button_Population">Population</button>
+                        <button type="button" class="button" id="button_GDP">Gross Domestic Product</button>
+                    </div>
+                    <div class="row" id="worlddata"></div>
+                    <div class="row" id="slider"></div>
+                </div>
+                <div class="row">
+                    <div id="multi_linegraph" class="col-lg-12">
+                        <h3 id="linegraph-title">Netherlands</h3>
+                    </div>
+                </div>
             </div>
-            <div id="pie" class="col-md-4">
-                <h3 id="country_name">Netherlands</h3>
-                <table id="pie-table" class="table">
-                    <tbody>
-                        <tr>
-                            <td class="first">Year</td>
-                            <td id="year" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first">Population</td>
-                            <td id="population" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first">GDP (USD)</td>
-                            <td id="gdp" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first">Total Emission</td>
-                            <td id="emission" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first" id="gas-title"></td>
-                            <td id="gas" class="second"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="gas_info" class="col-md-4">
-                <h3 id="title"></h3>
-                <table id="gas-table" class="table">
-                    <tbody>
-                        <tr>
-                            <td class="first">Chemical Formula</td>
-                            <td id="formula" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first">Molecular Weight</td>
-                            <td id="weight" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first">Properties</td>
-                            <td id="properties" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first">Production</td>
-                            <td id="production" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first">Uses</td>
-                            <td id="uses" class="second">-</td>
-                        </tr>
-                        <tr>
-                            <td class="first">Biological Role</td>
-                            <td id="role" class="second">-</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!--<img src="" alt="Molecule Structure" width="860px" height="757px">-->
-                <!--<iframe style="width: 500px; height: 300px;" frameborder="0" src="http://embed.molview.org/v1/?mode=balls&cid=280&bg=white"></iframe>-->
-                <svg id="molecule" class="img-responsive"></svg>
-            </div>
-            <div id="multi_linegraph" class="col-md-8">
-                <h3 id="linegraph-title">Netherlands</h3>
+
+            <div class="col-lg-5">
+                <div class="row" id="pie-row">
+                    <div id="pie" class="col-lg-6"></div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <h3 id="country_name">Netherlands</h3>
+                        </div>
+                        <div class="row">
+                            <table id="pie-table" class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="first">Year</td>
+                                        <td id="year" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Population</td>
+                                        <td id="population" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">GDP (USD)</td>
+                                        <td id="gdp" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Total Emission</td>
+                                        <td id="emission" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first" id="gas-title"></td>
+                                        <td id="gas" class="second"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="gas_info" class="col-lg-12">
+                        <div class="row">
+                            <h3 id="title"></h3>
+                        </div>
+                        <div class="row">
+                            <table id="gas-table" class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="first">Chemical Formula</td>
+                                        <td id="formula" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Molecular Weight</td>
+                                        <td id="weight" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Properties</td>
+                                        <td id="properties" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Production</td>
+                                        <td id="production" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Uses</td>
+                                        <td id="uses" class="second">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Biological Role</td>
+                                        <td id="role" class="second">-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <!--<img src="" alt="Molecule Structure" width="860px" height="757px">-->
+                            <!--<iframe style="width: 500px; height: 300px;" frameborder="0" src="http://embed.molview.org/v1/?mode=balls&cid=280&bg=white"></iframe>-->
+                            <svg id="molecule" class="img-responsive"></svg>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <footer>LAILA BLÖMER - 10563865</footer>
+        </div>
     </div>
-    <footer>LAILA BLÖMER - 10563865</footer>
+
     <script src="javascript/d3.slider.js"></script>
     <script src="javascript/molecule.js"></script>
+    <script src="javascript/functions.js"></script>
     <script src="javascript/project.js"></script>
 </body>
 </html>

@@ -1,23 +1,166 @@
+/**
+ * Programmeer Project
+ *
+ * Laila Blömer
+ *
+ * functions.js contains all update- and draw graph- functions
+ */
 
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+// draw and update worldmap
+function drawWorldMap(id, year) {
+    d3.json("scripts/data_file.json", function(error, data) {
+        // select right year from json
+        data = data[year];
+
+        // change fillkeys for Datamap
+        if (id == 'button_GHG') {
+            for (country in data) {
+                if (data[country]['GHG'] > 4000) {
+                    data[country].fillKey = 'A';
+                }
+                else if (data[country]['GHG'] > 1000) {
+                    data[country].fillKey = 'B';
+                }
+                else if (data[country]['GHG'] > 500) {
+                    data[country].fillKey = 'C';
+                }
+                else if (data[country]['GHG'] > 100) {
+                    data[country].fillKey = 'D';
+                }
+                else if (data[country]['GHG'] > 50) {
+                    data[country].fillKey = 'E';
+                }
+                else {
+                    data[country].fillKey = 'F';
+                }
+            }
+            // change legend fill colors
+            worldmap_colors = GHG_colors;
+            legend = legend_total[0];
+        }
+        else if (id == 'button_Population') {
+            for (country in data) {
+                if (data[country]['population'] > 100000000) {
+                    data[country].fillKey = 'A'
+                }
+                else if (data[country]['population'] > 50000000) {
+                    data[country].fillKey = 'B'
+                }
+                else if (data[country]['population'] > 10000000) {
+                    data[country].fillKey = 'C'
+                }
+                else if (data[country]['population'] > 5000000) {
+                    data[country].fillKey = 'D'
+                }
+                else if (data[country]['population'] > 100000) {
+                    data[country].fillKey = 'E'
+                }
+                else {
+                    data[country].fillKey = 'F'
+                }
+            }
+            worldmap_colors = population_colors;
+            legend = legend_total[1];
+        }
+        else {
+            for (country in data) {
+                if (data[country]['GDP'] > 10000000) {
+                    data[country].fillKey = 'A'
+                }
+                else if (data[country]['GDP'] > 1000000) {
+                    data[country].fillKey = 'B'
+                }
+                else if (data[country]['GDP'] > 500000) {
+                    data[country].fillKey = 'C'
+                }
+                else if (data[country]['GDP'] > 100000) {
+                    data[country].fillKey = 'D'
+                }
+                else if (data[country]['GDP'] > 50000) {
+                    data[country].fillKey = 'E'
+                }
+                else {
+                    data[country].fillKey = 'F'
+                }
+            }
+            worldmap_colors = GDP_colors;
+            legend = legend_total[2];
+        }
+
+        // select fillColor
+        for (key in data) {
+            if (data[key].fillKey == 'A') {
+                data[key].fillColor = worldmap_colors[5]
+            }
+            if (data[key].fillKey == 'B') {
+                data[key].fillColor = worldmap_colors[4]
+            }
+            if (data[key].fillKey == 'C') {
+                data[key].fillColor = worldmap_colors[3]
+            }
+            if (data[key].fillKey == 'D') {
+                data[key].fillColor = worldmap_colors[2]
+            }
+            if (data[key].fillKey == 'E') {
+                data[key].fillColor = worldmap_colors[1]
+            }
+            if (data[key].fillKey == 'F') {
+                data[key].fillColor = worldmap_colors[0]
+            } }
+
+        // update Datamap coloring
+        map.updateChoropleth(data);
+
+        // remove and re-draw legend
+        d3.select(".datamaps-legend").remove();
+        map.legend(legend);
+
+        // update coloring of legend
+        d3.selectAll(".datamaps-legend dd")
+            .each(function(d, i) {
+                d3.select(this)
+                    .style("background-color", worldmap_colors[5 - i])
+            });
+    });
 }
 
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+// update pie chart, linegraph, info tables on click
+function worldMapClick(year, country_id) {
+    d3.json("scripts/data_file.json", function(error, data) {
+        // select right year from json
+        data = data[year];
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-};
+        // update pie chart
+        chart.data(getData(data, country_id)).render();
+        d3.select("#pie-row").transition().duration(500)
+            .select("h3")
+            .text(data[country_id].country);
 
+        // update table information with pie chart
+        writePieTable(year, data[country_id].population, data[country_id].GDP, data[country_id].GHG);
+
+        map.svg.selectAll('.datamaps-subunit').on('click', function (d) {
+            country_id = d.id;
+
+            // update pie chart
+            chart.data(getData(data, country_id)).render();
+            d3.select("#pie-row").transition().duration(500)
+                .select("h3")
+                .text(data[country_id].country);
+
+            // update linegraph
+            d3.select("#multi_linegraph").transition().duration(500)
+                .select("h3#linegraph-title")
+                .text(data[country_id].country);
+            drawLinegraph(d.id);
+
+            // update table information with pie chart
+            writePieTable(year, data[country_id].population, data[country_id].GDP, data[country_id].GHG);
+        });
+    });
+}
+
+// draws and updates pie chart
 function pie(){
     // default settings
     var $el = d3.select("#pie");
@@ -32,7 +175,7 @@ function pie(){
         .sort(null)
         .value(function(d) { return d.value; });
 
-    var svg, g, arc, legend;
+    var svg, g, arc;
     var object = {};
 
     // refreshing chart
@@ -59,7 +202,9 @@ function pie(){
 
             var labels = g.append("text")
                 .attr("transform", function(d) {
-                    return "translate(" + Math.cos(((d.startAngle + d.endAngle - Math.PI) / 2)) * (radius + textOffset) + "," + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2) * (radius + textOffset) + ")"; })
+                    return "translate(" + Math.cos(((d.startAngle + d.endAngle - Math.PI) / 2))
+                        * (radius + textOffset) + "," + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2)
+                        * (radius + textOffset) + ")"; })
                 .attr("dy", ".35em")
                 .attr("class", "pie-label");
             // fill arcs with data
@@ -71,37 +216,8 @@ function pie(){
                     return pie_colors[d.data.key]; });
             g.select("text").text(function(d) { return d.data.key; });
 
+            // update labels
             updateLabels(labels);
-
-            // var label_group = svg.append("svg:g")
-            //     .attr("class", "arc")
-            //     .attr("transform", "translate(" + (width/2) + "," + (height/2) + ")");
-            //
-            // var labels = label_group.selectAll("path")
-            //     .data(data)
-            //     .enter()
-            //     .append("svg:text")
-            //     .attr("transform", function(d) {
-            //         return "translate(" + Math.cos(((d.startAngle + d.endAngle - Math.PI) / 2)) * (radius + textOffset) + "," + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2) * (radius + textOffset) + ")";
-            //     })
-            //     .attr("text-anchor", function(d){
-            //         if ((d.startAngle  +d.endAngle) / 2 < Math.PI) {
-            //             return "beginning";
-            //         } else {
-            //             return "end";
-            //         }
-            //     })
-            //     .text(function(d) {
-            //         return d.data.key;
-            //     });
-
-            // define interactive text for above piechart
-            // g.append("text")
-            //     .attr("class", "keytext")
-            //     .attr("x", 140)
-            //     .attr("y", 110);
-
-            // svg.append("g").attr("class", "pie-legend");
 
             // define interactive tooltip
             svg.append("text")
@@ -121,11 +237,6 @@ function pie(){
                     .text(function(d){
                         return Math.round((d[obj.data.key] / pie_data) * 100) + '%';
                     });
-                // svg.select("text.keytext")
-                //     .attr("fill", function() { return pie_colors[obj.data.key]; })
-                //     .text(function(){
-                //         return obj.data.key + "     " + Math.round(obj.data.value) + " MtCO2e";
-                //     });
                 d3.select("td#gas-title")
                     .text(function(){ return obj.data.key; })
                     .attr("color", function() { return pie_colors[obj.data.key]; });
@@ -166,8 +277,12 @@ function pie(){
 
             // update text
             labels = g.select("text")
-                .attr("transform", function(d) { return "translate(" + Math.cos(((d.startAngle + d.endAngle - Math.PI) / 2)) * (radius + textOffset) + "," + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2) * (radius + textOffset) + ")"; });
+                .attr("transform", function(d) { return "translate("
+                    + Math.cos(((d.startAngle + d.endAngle - Math.PI) / 2))
+                    * (radius + textOffset) + "," + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2)
+                    * (radius + textOffset) + ")"; });
 
+            // update labels
             updateLabels(labels);
 
             // update tooltip
@@ -178,259 +293,63 @@ function pie(){
 
     // returning standard values for piechart
     object.data = function(value){
-        pie_data = parseInt(value["CO2"]) + parseInt(value["CH4"]) + parseInt(value["N2O"]) + parseInt(value["Rest"]);
+        pie_data = parseInt(value["CO2"])
+            + parseInt(value["CH4"])
+            + parseInt(value["N2O"])
+            + parseInt(value["Rest"]);
         if (!arguments.length) return data;
             data = value;
-            return object;
-        };
+            return object; };
 
     object.$el = function(value){
         if (!arguments.length) return $el;
             $el = value;
-            return object;
-        };
+            return object; };
 
     object.width = function(value){
         if (!arguments.length) return width;
             width = value;
             radius = Math.min(width, height) / 2;
-            return object;
-        };
+            return object; };
 
     object.height = function(value){
         if (!arguments.length) return height;
             height = value;
             radius = Math.min(width, height) / 2;
-            return object;
-        };
+            return object; };
 
     return object;
 }
 
-function drawWorldMap(id, year, country_id) {
-    d3.json("scripts/data_file.json", function(error, data) {
-        data = data[year];
-
-        if (id == 'button_GHG') {
-            for (country in data) {
-                if (data[country]['GHG'] > 4000) {
-                    data[country].fillKey = 'A';
-                    // data[country].fillColor = GHG_colors[5];
-                }
-                else if (data[country]['GHG'] > 1000) {
-                    data[country].fillKey = 'B';
-                    // data[country].fillColor = GHG_colors[4];
-                }
-                else if (data[country]['GHG'] > 500) {
-                    data[country].fillKey = 'C';
-                    // data[country].fillColor = GHG_colors[3];
-                }
-                else if (data[country]['GHG'] > 100) {
-                    data[country].fillKey = 'D';
-                    // data[country].fillColor = GHG_colors[2];
-                }
-                else if (data[country]['GHG'] > 50) {
-                    data[country].fillKey = 'E';
-                    // data[country].fillColor = GHG_colors[1];
-                }
-                else {
-                    data[country].fillKey = 'F';
-                    // data[country].fillColor = GHG_colors[0];
-                }
-            }
-            worldmap_colors = GHG_colors;
-            legend = legend_total[0];
-        }
-        else if (id == 'button_Population') {
-            for (country in data) {
-                if (data[country]['population'] > 100000000) {
-                    data[country].fillKey = 'A'
-                }
-                else if (data[country]['population'] > 50000000) {
-                    data[country].fillKey = 'B'
-                }
-                else if (data[country]['population'] > 10000000) {
-                    data[country].fillKey = 'C'
-                }
-                else if (data[country]['population'] > 5000000) {
-                    data[country].fillKey = 'D'
-                }
-                else if (data[country]['population'] > 100000) {
-                    data[country].fillKey = 'E'
-                }
-                else {
-                    data[country].fillKey = 'F'
-                }
-            }
-            worldmap_colors = population_colors;
-            legend = legend_total[1];
-            console.log(legend);
-        }
-        else {
-            for (country in data) {
-                if (data[country]['GDP'] > 10000000) {
-                    data[country].fillKey = 'A'
-                }
-                else if (data[country]['GDP'] > 1000000) {
-                    data[country].fillKey = 'B'
-                }
-                else if (data[country]['GDP'] > 500000) {
-                    data[country].fillKey = 'C'
-                }
-                else if (data[country]['GDP'] > 100000) {
-                    data[country].fillKey = 'D'
-                }
-                else if (data[country]['GDP'] > 50000) {
-                    data[country].fillKey = 'E'
-                }
-                else {
-                    data[country].fillKey = 'F'
-                }
-            }
-            worldmap_colors = GDP_colors;
-            legend = legend_total[2];
-        }
-
-        for (key in data) {
-            if (data[key].fillKey == 'A') {
-                data[key].fillColor = worldmap_colors[5]
-            }
-            if (data[key].fillKey == 'B') {
-                data[key].fillColor = worldmap_colors[4]
-            }
-            if (data[key].fillKey == 'C') {
-                data[key].fillColor = worldmap_colors[3]
-            }
-            if (data[key].fillKey == 'D') {
-                data[key].fillColor = worldmap_colors[2]
-            }
-            if (data[key].fillKey == 'E') {
-                data[key].fillColor = worldmap_colors[1]
-            }
-            if (data[key].fillKey == 'F') {
-                data[key].fillColor = worldmap_colors[0]
-            }
-        }
-        map.updateChoropleth(data);
-
-        // update legend
-        d3.select(".datamaps-legend").remove();
-        map.legend(legend);
-        d3.selectAll(".datamaps-legend dd")
-            .each(function(d, i) {
-                d3.select(this)
-                    .style("background-color", worldmap_colors[5 - i])
-            });
-
-        chart.data(getData(data, country_id)).render();
-        d3.select("#pie-row").transition().duration(500).select("h3").text(data[country_id].country);
-        writePieTable(year, data[country_id].population, data[country_id].GDP, data[country_id].GHG);
-
-        map.svg.selectAll('.datamaps-subunit').on('click', function(d) {
-            country_id = d.id;
-            d3.select("#pie-row").transition().duration(500).select("h3").text(data[country_id].country);
-            d3.select("#multi_linegraph").transition().duration(500).select("h3#linegraph-title").text(data[country_id].country);
-            drawLinegraph(d.id);
-            chart.data(getData(data, country_id)).render();
-            writePieTable(year, data[country_id].population, data[country_id].GDP, data[country_id].GHG);
-        });
+// nest data for linegraph
+function nestData(data) {
+    data.forEach(function (d) {
+        d.Amount = +Math.round(d.Amount);
+        d.year = parseDate(d.year);
     });
+
+    // nest the entries
+    dataNest = d3.nest()
+        .key(function (d) {
+            return d.Gas;
+        })
+        .entries(data);
+
+    // set x and y domain
+    x.domain([d3.min(data, function (d) {return d.year;}), d3.max(data, function (d) {return d.year;})]);
+    y.domain([d3.min(data, function (d) {return d.Amount;}), d3.max(data, function (d) {return d.Amount;})]);
 }
 
-function mousemove() {
-    for (j = 0; j < 4; j++) {
-        var x0 = x.invert(d3.mouse(this)[0]),
-        i = bisectDate(dataNest[j].values, x0, 1),
-        d0 = dataNest[j].values[i - 1],
-        d1 = dataNest[j].values[i],
-        d = x0 - d0.year > d1.year - x0 ? d1 : d0;
-
-        // console.log(dataNest[j].values);
-
-
-
-        // if (j == 0) {
-        //     // transform position crosshair
-        //     focusGHG.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
-        //     // display text
-        //     focusGHG.select("text#infoGHG.infotext").text("Total: " + d.Amount + " MtCO2e");
-        //     focusGHG.select("text#infoGHG.infotextpath").text("Total: " + d.Amount + " MtCO2e");
-        //     // display lines from crosshair
-        //
-        //     // focusGHG.select(".yline").attr("x1", x(d.year) * -1).attr("x2", width);
-        //     // focusGHG.select(".xline").attr("y1", y(d.Amount) * -1).attr("y2", height - y(d.year));
-        // }
-        if (j == 0) {
-            // transform position crosshair
-            focusCO2.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
-            // display text
-            // focusCO2.select("text.infotextpath#infoCO2").text("CO2: " + d.Amount + " MtCO2e");
-            // focusCO2.select("text.infotext#infoCO2").text("CO2: " + d.Amount + " MtCO2e");
-
-            focusCO2.select(".xline").attr("y1", y(d.Amount) * -1).attr("y2", height - y(d.Amount));
-
-            // focusCO2.select("div.tooltip").transition().style("opacity", 0.9);
-
-            tooltip.transition()
-                    .duration(100)
-                    .style("opacity", .8);
-            tooltip.html("CO2: " + d.Amount + " MtCO2e" +
-                "<br/> <br/>" + "CH4: " + dataNest[1].values[i].Amount + " MtCO2e" +
-                "<br/> <br/>" + "N2O: " + dataNest[2].values[i].Amount + " MtCO2e" +
-                "<br/> <br/>" + "Rest: " + dataNest[3].values[i].Amount + " MtCO2e")
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", 100 + 'px');
-
-
-        }
-        else if (j == 1) {
-            // transform position crosshair
-            focusCH4.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
-            // display text
-            // focusCH4.select("text#infoCH4.infotext").text("CH4: " + d.Amount + " MtCO2e");
-            // focusCH4.select("text#infoCH4.infotextpath").text("CH4: " + d.Amount + " MtCO2e");
-        }
-        else if (j == 2) {
-            // transform position crosshair
-            focusN2O.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
-            // display text
-            // focusN2O.select("text#infoN2O.infotext").text("N2O: " + d.Amount + " MtCO2e");
-            // focusN2O.select("text#infoN2O.infotextpath").text("N2O: " + d.Amount + " MtCO2e");
-        }
-        else {
-            // transform position crosshair
-            focusRest.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
-            // display text
-            // focusRest.select("text#infoRest.infotext").text("Rest: " + d.Amount + " MtCO2e");
-            // focusRest.select("text#infoRest.infotextpath").text("Rest: " + d.Amount + " MtCO2e");
-        }
-        d3.selectAll(".focus").select(".yline").attr("x1", x(d.year) * -1).attr("x2", width - x(d.year));
-    }
-}
-
+// draws and updates linegraph
 function drawLinegraph(id) {
     d3.json('scripts/data_linegraph.json', function(error, data) {
         for (var key in data) {
             if (key == id) {
-                data = data[key];
-            }
+                data = data[key]; }
         }
-        // console.log(data);
-        data.forEach(function (d) {
-            // console.log(d);
-            d.Amount = +Math.round(d.Amount);
-            d.year = parseDate(d.year);
-        });
 
-        // nest the entries by two levels
-        dataNest = d3.nest()
-            .key(function (d) {
-                return d.Gas;
-            })
-            .entries(data);
-
-        x.domain([d3.min(data, function (d) {return d.year;}), d3.max(data, function (d) {return d.year;})]);
-        y.domain([d3.min(data, function (d) {return d.Amount;}), d3.max(data, function (d) {return d.Amount;})]);
+        // nest data
+        nestData(data);
 
         // define variable for transition
         var change = d3.select("#multi_linegraph").transition().duration(500);
@@ -440,6 +359,7 @@ function drawLinegraph(id) {
         change.selectAll("path.line")
             .each(function(d, i) {
                 d3.select(this)
+                    .transition().duration(500)
                     .attr("d", gasline(dataNest[i].values))
                     .style("stroke", function() { return dataNest[i].color = pie_colors[dataNest[i].key]; })
             });
@@ -449,34 +369,74 @@ function drawLinegraph(id) {
     });
 }
 
+// displays tooptip with linegraph
+function mousemove() {
+    for (j = 0; j < 4; j++) {
+        var x0 = x.invert(d3.mouse(this)[0]),
+        i = bisectDate(dataNest[j].values, x0, 1),
+        d0 = dataNest[j].values[i - 1],
+        d1 = dataNest[j].values[i],
+        d = x0 - d0.year > d1.year - x0 ? d1 : d0;
+        if (j == 0) {
+            // transform position crosshair
+            crosshairCO2.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
+            crosshairCO2.select(".xline").attr("y1", y(d.Amount) * -1).attr("y2", height - y(d.Amount));
+
+            // call tooltip and fill with crosshair info
+            tooltip.transition().duration(200)
+                .style("opacity", .8);
+            tooltip.html("CO2: " + d.Amount + " MtCO2e" +
+                "<br/><br/>" + "CH4: " + dataNest[1].values[i].Amount + " MtCO2e" +
+                "<br/><br/>" + "N2O: " + dataNest[2].values[i].Amount + " MtCO2e" +
+                "<br/><br/>" + "Rest: " + dataNest[3].values[i].Amount + " MtCO2e")
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", 100 + 'px');
+        }
+
+        else if (j == 1) {
+            // transform position crosshair
+            crosshairCH4.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
+        }
+        else if (j == 2) {
+            crosshairN2O.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
+        }
+        else {
+            crosshairRest.attr("transform", "translate(" + x(d.year) + "," + y(d.Amount) + ")");
+        }
+
+        // change y line of crosshair
+        d3.selectAll(".crosshair").select(".yline").attr("x1", x(d.year) * -1).attr("x2", width - x(d.year));
+    }
+}
+
+// write information table
 function writeTable(key){
     var index = 0;
+
+    // get index for table info
     if (key == 'CH4') {
         index = 1;
-        // d3.select('img').transition().attr('src', 'images/CH4.jpg')
     }
     else if (key == 'N2O') {
         index = 2;
-        // d3.select('img').transition().attr('src', 'images/N2O.png')
     }
     else if (key == 'Rest') { exit() }
-    // else { d3.select('img').transition().attr('src', 'images/CO2.png') }
 
-    d3.select("h3#title").transition().text(' ' + title[index]);
-    d3.select("td#formula").transition().text(' ' + key);
-    d3.select("td#weight").transition().text(' ' + weight[index]);
-    d3.select("td#properties").transition().text(' ' + properties[index]);
-    d3.select("td#production").transition().text(' ' + production[index]);
-    d3.select("td#role").transition().text(' ' + role[index]);
-    d3.select("td#uses").transition().text(' ' + uses[index]);
-
-    // d3.select("iframe").transition().duration(300).attr('src', image[index]);
-    // d3.select("img").transition().attr('src', image2[index]);
+    // change table text
+    d3.select("h3#title").transition().text(title[index]);
+    d3.select("td#formula").transition().text(key);
+    d3.select("td#weight").transition().text(weight[index]);
+    d3.select("td#properties").transition().text(properties[index]);
+    d3.select("td#production").transition().text(production[index]);
+    d3.select("td#role").transition().text(role[index]);
+    d3.select("td#uses").transition().text(uses[index]);
 }
 
+// write table displaying pie info per year
 function writePieTable(year, population, gdp, emission) {
     d3.select("td#year").transition().text(year);
 
+    // change population size
     if (!population) {
         d3.select("td#population").transition().text("Unknown");
     }
@@ -487,6 +447,7 @@ function writePieTable(year, population, gdp, emission) {
         d3.select("td#population").transition().text(Math.round(population / 1000000) + " Million");
     }
 
+    // change GDP amount
     if (!gdp) {
         d3.select("td#gdp").transition().text("Unknown");
     }
@@ -497,18 +458,22 @@ function writePieTable(year, population, gdp, emission) {
         d3.select("td#gdp").transition().text(Math.round(gdp / 1000000) + "M");
     }
 
+    // change emission
     d3.select("td#emission").transition().text(Math.round(emission) + " MtCO2e");
 }
 
+// update pie labels
 function updateLabels(labels) {
     var textOffset = 14,
         radius = Math.min(width - 400, height) / 2,
         prev;
 
+    // for each label, check if it overlaps with another label
     labels.each(function(d, i) {
         if(i > 0) {
             var thisbb = this.getBoundingClientRect(),
                 prevbb = prev.getBoundingClientRect();
+
             // move if they overlap
             if(!(thisbb.right < prevbb.left || thisbb.left > prevbb.right ||
                     thisbb.bottom < prevbb.top || thisbb.top > prevbb.bottom)) {
@@ -518,17 +483,20 @@ function updateLabels(labels) {
                     cpy = prevbb.top + (prevbb.bottom - prevbb.top)/2,
                     off = Math.sqrt(Math.pow(ctx - cpx, 2) + Math.pow(cty - cpy, 2))/2;
 
+                // move label
                 d3.select(this).attr("transform", "translate(" + Math.cos(((d.startAngle
                     + d.endAngle - Math.PI) / 2)) * (radius + textOffset + off) + ","
-                    + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2) * (radius + textOffset + off) + ")");
-            }
+                    + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2) * (radius + textOffset + off) + ")"); }
         }
         prev = this;
     });
 }
 
+// draw and update molecule chart
 function changeMolecule(gas) {
     var mol = '';
+
+    // select molecule json
     if (gas == 'CO2') {
         mol = 'scripts/co2.json';
     }
@@ -539,44 +507,52 @@ function changeMolecule(gas) {
         mol = 'scripts/n2o.json';
     }
 
+    // remove previous molecule
     d3.selectAll(".link").remove();
     d3.selectAll(".node").remove();
 
     d3.json(mol, function(error, graph) {
         if (error) throw error;
 
+        // group the data
         force
             .nodes(graph.nodes)
             .links(graph.links)
             .on("tick", tick)
             .start();
 
+        // define new links
         var link = molecule.selectAll(".link")
             .data(graph.links)
             .enter().append("g")
                 .attr("class", "link");
 
+        // draw bondings of molecules
         link.append("line")
             .style("stroke-width", function(d) { return (d.bond * 2 - 1) * 2 + "px"; });
 
         link.filter(function(d) { return d.bond > 1; }).append("line")
             .attr("class", "separator");
 
+        // define new nodes
         var node = molecule.selectAll(".node")
             .data(graph.nodes)
             .enter().append("g")
                 .attr("class", "node")
                 .call(force.drag);
 
+        // draw atoms
         node.append("circle")
             .attr("r", function(d) { return radius(d.size); })
             .style("fill", function(d) { return color(d.atom); });
 
+        // add label
         node.append("text")
             .attr("dy", ".35em")
             .attr("text-anchor", "middle")
             .text(function(d) { return d.atom; });
 
+        // make molecule draggable
         function tick() {
             link.selectAll("line")
                 .attr("x1", function(d) { return d.source.x; })

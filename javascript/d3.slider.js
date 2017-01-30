@@ -4,6 +4,7 @@
     Copyright (c) 2013, Bjorn Sandvik - http://blog.thematicmapping.org
     BSD license: http://opensource.org/licenses/BSD-3-Clause
 */
+
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.

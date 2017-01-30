@@ -33,7 +33,13 @@
             <div class="col-lg-7">
                 <div class="row" id="worlddata-row">
                     <div class="row">
-                        <button type="button" class="button" id="button_GHG">Green House Gases</button>
+                        <div class="dropdown">
+                            <button onclick="myFunction()" type="button" class="dropbtn">Green House Gases</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a type="button" href="#" id="button_GHG">Absolute</a>
+                                <a type="button" href="#" id="relative">Relative</a>
+                            </div>
+                        </div>
                         <button type="button" class="button" id="button_Population">Population</button>
                         <button type="button" class="button" id="button_GDP">Gross Domestic Product</button>
                     </div>

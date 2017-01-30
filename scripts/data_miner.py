@@ -8,8 +8,8 @@ import xlrd, json, csv
 data_array = {}
 linegraph = {}
 
-workbook_co2 = xlrd.open_workbook('data_co2.xlsx')
-worksheet_co2 = workbook_co2.sheet_by_name('Sheet1')
+# workbook_co2 = xlrd.open_workbook('/data/data_co2.xlsx')
+# worksheet_co2 = workbook_co2.sheet_by_name('Sheet1')
 # print worksheet_co2.cell(0, 0).value
 
 # array with country codes
@@ -265,7 +265,7 @@ country_codes = [
     ["zm", "ZMB", "Zambia"],
     ["zw", "ZWE", "Zimbabwe"] ]
 
-with open('GHG_Emission.csv', 'rb') as input:
+with open('../data/GHG_Emission.csv', 'rb') as input:
     workbook_GHG = csv.reader(input, delimiter=',')
     for row in workbook_GHG:
         # data array for line graph
@@ -288,7 +288,14 @@ with open('GHG_Emission.csv', 'rb') as input:
             if row[24] == keys:
                 for countries in data_array[keys]:
                     if data_array[keys][countries]['country'] == row[23]:
-                        data_array[keys][countries].update({'population': row[25], 'GDP': row[27]})
+                        if row[25] != '' and data_array[keys][countries]['GHG'] != '':
+                            # print data_array[keys][countries]['GHG']
+                            # print float(data_array[keys][countries]['GHG'])
+                            # print row[25]
+                            # print float(row[25])
+                            relative = float(data_array[keys][countries]['GHG']) / float(row[25])
+                            data_array[keys][countries].update({'population': row[25], 'GDP': row[27], 'relative': relative * 1000000000})
+                            # data_array[keys][countries].update
 
 # with open('GHG_Emission.csv', 'rb') as input:
 #     workbook_GHG = csv.reader(input, delimiter=',')

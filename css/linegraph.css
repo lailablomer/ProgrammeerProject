@@ -1,3 +1,9 @@
+/* Programmeer Project */
+
+/* Laila Blömer */
+/* 10563865 */
+
+/* linegraph.css styling multi-linegraph*/
 
 #multi_linegraph {
     position: relative;
@@ -38,11 +44,6 @@ h3#linegraph-title {
   pointer-events: all;
 }
 
-/*.focus circle {*/
-  /*fill: none;*/
-  /*stroke: blue;*/
-/*}*/
-
 .xline,
 .yline {
     stroke: black;
@@ -60,5 +61,5 @@ div.tooltip {
     background: whitesmoke;
     border: 0;
     border-radius: 8px;
-pointer-events: none;
+    pointer-events: none;
 }

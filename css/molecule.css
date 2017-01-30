@@ -1,3 +1,9 @@
+/* Programmeer Project */
+
+/* Laila Blömer */
+/* 10563865 */
+
+/* molecule.css styling molecule, information table */
 
 #gas_info {
     position: relative;
@@ -41,20 +47,3 @@ table#gas-table {
     top: 10px;
     left: 50px;
 }
-
-/*iframe {*/
-    /*move-to: back;*/
-    /*z-index: 1;*/
-    /*position: absolute;*/
-    /*bottom: -100px;*/
-    /*left: -150px;*/
-    /*zoom: 2.5;*/
-    /*background-color: transparent;*/
-/*}*/
-
-/*img {*/
-    /*position: absolute;*/
-    /*bottom: -50px;*/
-    /*left: 120px;*/
-    /*zoom: 0.4;*/
-/*}*/

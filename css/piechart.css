@@ -1,3 +1,9 @@
+/* Programmeer Project */
+
+/* Laila Blömer */
+/* 10563865 */
+
+/* piechart.css styling piechart, table with piechart*/
 
 #pie-row {
     position: relative;
@@ -13,11 +19,6 @@
     top: 0;
     z-index: 2;
 }
-
-/*.keytext {*/
-    /*font-size: 20px;*/
-    /*font-weight: bold;*/
-/*}*/
 
 .pie-label {
     text-anchor: middle;

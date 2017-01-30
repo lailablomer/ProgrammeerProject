@@ -10,3 +10,8 @@ Tasklist:
 ![alt tag](https://github.com/lailablomer/ProgrammeerProject/blob/master/doc/BCH01.PNG)
 
 ## Second analysis
+
+Tasklist:
+* Write shorter units of code
+
+![alt tag](https://github.com/lailablomer/ProgrammeerProject/blob/master/doc/BCH02.PNG)

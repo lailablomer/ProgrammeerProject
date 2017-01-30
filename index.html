@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>GHG Emission</title>
     <link rel="stylesheet" type="text/css" href="css/d3.slider.css">
-    <link rel="stylesheet" type="text/css" href="css/project.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
     <link rel="stylesheet" type="text/css" href="css/molecule.css"/>
     <link rel="stylesheet" type="text/css" href="css/linegraph.css"/>
     <link rel="stylesheet" type="text/css" href="css/piechart.css"/>
@@ -33,13 +33,7 @@
             <div class="col-lg-7">
                 <div class="row" id="worlddata-row">
                     <div class="row">
-                        <div class="dropdown">
-                            <button onclick="myFunction()" type="button" class="dropbtn">Green House Gases</button>
-                            <div id="myDropdown" class="dropdown-content">
-                                <a type="button" href="#" id="button_GHG">Absolute</a>
-                                <a type="button" href="#" id="relative">Relative</a>
-                            </div>
-                        </div>
+                        <button type="button" class="button" id="button_GHG">Greenhouse Gases</button>
                         <button type="button" class="button" id="button_Population">Population</button>
                         <button type="button" class="button" id="button_GDP">Gross Domestic Product</button>
                     </div>
@@ -124,8 +118,6 @@
                             </table>
                         </div>
                         <div class="row">
-                            <!--<img src="" alt="Molecule Structure" width="860px" height="757px">-->
-                            <!--<iframe style="width: 500px; height: 300px;" frameborder="0" src="http://embed.molview.org/v1/?mode=balls&cid=280&bg=white"></iframe>-->
                             <svg id="molecule" class="img-responsive"></svg>
                         </div>
 
@@ -141,6 +133,6 @@
     <script src="javascript/d3.slider.js"></script>
     <script src="javascript/molecule.js"></script>
     <script src="javascript/functions.js"></script>
-    <script src="javascript/project.js"></script>
+    <script src="javascript/main.js"></script>
 </body>
 </html>

@@ -1,16 +1,14 @@
-# Laila Blomer
 # Programmeer Project
 #
-# Data miner > from svg to json
+# Laila Blomer
+# 10563865
+#
+# data_miner.py converts csv data to json
 
-import xlrd, json, csv
+import json, csv
 
 data_array = {}
 linegraph = {}
-
-# workbook_co2 = xlrd.open_workbook('/data/data_co2.xlsx')
-# worksheet_co2 = workbook_co2.sheet_by_name('Sheet1')
-# print worksheet_co2.cell(0, 0).value
 
 # array with country codes
 country_codes = [
@@ -268,14 +266,27 @@ country_codes = [
 with open('../data/GHG_Emission.csv', 'rb') as input:
     workbook_GHG = csv.reader(input, delimiter=',')
     for row in workbook_GHG:
+
         # data array for line graph
         for key in country_codes:
             if key[2] == row[0]:
+                # fill data_array with year as first key
                 if not row[1] in data_array:
-                    data_array[row[1]] = {key[1]: {'country': key[2], 'GHG': row[2], 'CO2': row[4], 'CH4': row[5], 'N2O': row[6], 'Rest': row[7]}}
+                    data_array[row[1]] = {key[1]: {'country': key[2],
+                                                   'GHG': row[2],
+                                                   'CO2': row[4],
+                                                   'CH4': row[5],
+                                                   'N2O': row[6],
+                                                   'Rest': row[7]}}
                 elif not key[1] in data_array[row[1]]:
-                    data_array[row[1]].update({key[1]: {'country': key[2], 'GHG': row[2], 'CO2': row[4], 'CH4': row[5], 'N2O': row[6], 'Rest': row[7]}})
+                    data_array[row[1]].update({key[1]: {'country': key[2],
+                                                        'GHG': row[2],
+                                                        'CO2': row[4],
+                                                        'CH4': row[5],
+                                                        'N2O': row[6],
+                                                        'Rest': row[7]}})
 
+                # fill data for linegraph with country as first key
                 if not key[1] in linegraph:
                     linegraph[key[1]] = []
                 linegraph[key[1]].append({'Country': key[2], 'Gas': "CO2", 'Amount': row[4], 'year': row[1]})
@@ -283,36 +294,17 @@ with open('../data/GHG_Emission.csv', 'rb') as input:
                 linegraph[key[1]].append({'Country': key[2], 'Gas': 'N2O', 'Amount': row[6], 'year': row[1]})
                 linegraph[key[1]].append({'Country': key[2], 'Gas': 'Rest', 'Amount': row[7], 'year': row[1]})
 
-
+        # add relative GHG emission to data_array
         for keys in data_array.keys():
             if row[24] == keys:
                 for countries in data_array[keys]:
                     if data_array[keys][countries]['country'] == row[23]:
                         if row[25] != '' and data_array[keys][countries]['GHG'] != '':
-                            # print data_array[keys][countries]['GHG']
-                            # print float(data_array[keys][countries]['GHG'])
-                            # print row[25]
-                            # print float(row[25])
                             relative = float(data_array[keys][countries]['GHG']) / float(row[25])
-                            data_array[keys][countries].update({'population': row[25], 'GDP': row[27], 'relative': relative * 1000000000})
-                            # data_array[keys][countries].update
 
-# with open('GHG_Emission.csv', 'rb') as input:
-#     workbook_GHG = csv.reader(input, delimiter=',')
-#     for row in workbook_GHG:
-#         # data array for line graph
-#         for key in country_codes:
-#             if key[2] == row[0]:
-#                 if not row[0] in linegraph:
-#                     linegraph[row[0]] = {row[1]: {'GHG': row[2], 'CO2': row[4], 'CH4': row[5], 'N2O': row[6], 'rest': row[7]}}
-#                 else:
-#                     linegraph[row[0]].update({row[1]: {'GHG': row[2], 'CO2': row[4], 'CH4': row[5], 'N2O': row[6], 'rest': row[7]}})
-#
-#         # data array for worldmap
-#         if row[1] == '2012':
-#             for countries in country_codes:
-#                 if row[0] == countries[2]:
-#                     data_array[countries[1]] = {'country': row[0], 'year': 2012, 'GHG': row[2], 'CO2': row[4], 'CH4': row[5], 'N2O': row[6], 'rest': row[7]}
+                            data_array[keys][countries].update({'population': row[25],
+                                                                'GDP': row[27],
+                                                                'relative': relative * 1000000000})
 
 # write output files
 with open('data_file.json', 'w') as outfile:
@@ -320,8 +312,3 @@ with open('data_file.json', 'w') as outfile:
 
 with open('data_linegraph.json', 'w') as outfile:
     json.dump(linegraph, outfile, indent=4)
-# linegraph[row[0]] = {'GHG': {'year': row[1], 'data': row[2]},
-#                                          'CO2': {'year': row[1], 'data': row[4]},
-#                                          'CH4': {'year': row[1], 'data': row[5]},
-#                                          'N2O': {'year': row[1], 'data': row[6]},
-#                                          'rest': {'year': row[1], 'data': row[7]}}

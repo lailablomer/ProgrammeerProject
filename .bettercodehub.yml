@@ -1,0 +1,6 @@
+exclude:
+- /javascript/d3.slider.js
+component_depth: 1
+languages:
+- javascript
+- python

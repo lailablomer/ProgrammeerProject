@@ -7,9 +7,9 @@
 
 #multi_linegraph {
     position: relative;
-    margin-top: 10px;
-    /*margin-right: 20px;*/
     width: 100%;
+    margin-top: 10px;
+    margin-right: 10px;
     height: 350px;
     border: 1px solid gray;
     z-index: 2;

@@ -2,6 +2,7 @@
  * Programmeer Project
  *
  * Laila Blömer
+ * 10563865
  *
  * functions.js contains all update- and draw graph- functions
  */
@@ -9,6 +10,7 @@
 // draw and update worldmap
 function drawWorldMap(id, year) {
     d3.json("scripts/data_file.json", function(error, data) {
+        if (error) throw error;
         // select right year from json
         data = data[year];
 
@@ -26,7 +28,12 @@ function drawWorldMap(id, year) {
         }
 
         for (country_key in data) {
-            if ((data[country_key]['GHG'] > 4000 && id == 'button_GHG') ||
+            if ((!data[country_key]['GHG'] && id == 'button_GHG') ||
+                    (!data[country_key]['population'] && id == "button_Population") ||
+                    (!data[country_key]['GDP'] && id == "button_GDP")) {
+                data[country_key].fillColor = "grey";
+            }
+            else if ((data[country_key]['GHG'] > 4000 && id == 'button_GHG') ||
                     (data[country_key]['population'] > 100000000 && id == "button_Population") ||
                     (data[country_key]['GDP'] > 10000000 && id == "button_GDP")) {
                 data[country_key].fillKey = 'A';
@@ -81,6 +88,7 @@ function drawWorldMap(id, year) {
 // update pie chart, linegraph, info tables on click
 function worldMapClick(year, country_id) {
     d3.json("scripts/data_file.json", function(error, data) {
+        if (error) throw error;
         // select right year from json
         data = data[year];
 
@@ -297,6 +305,8 @@ function nestData(data) {
 // draws and updates linegraph
 function drawLinegraph(id) {
     d3.json('scripts/data_linegraph.json', function(error, data) {
+        if (error) throw error;
+
         for (var key in data) {
             if (key == id) {
                 data = data[key]; }

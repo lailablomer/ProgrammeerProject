@@ -49,6 +49,8 @@ var svg = d3.select("#linegraph")
 
 // get the first linegraph data
 d3.json("scripts/data_linegraph.json", function(error, data) {
+    if (error) throw error;
+
     data = data.NLD;
 
     // nest the data
@@ -81,6 +83,7 @@ d3.json("scripts/data_linegraph.json", function(error, data) {
             .attr("d", gasline(d.values))
             .style("stroke", function() {
                 return pie_colors[d.key]; });
+
         // add legend
         svg.append("text")
             .attr("x", (legendSpace/2)+i*legendSpace)
@@ -89,6 +92,7 @@ d3.json("scripts/data_linegraph.json", function(error, data) {
             .style("fill", function() {
                 return d.color = pie_colors[d.key]; })
             .text(d.key)
+
             // add interactive element: on legend-click table information and molecule change
             .on("click", function () {
                 if (this.innerHTML != "Rest") {
@@ -103,14 +107,17 @@ var crosshairN2O = svg.append("g")
     .attr("class", "crosshair")
     .attr("id", "crosshairN2O")
     .style("display", "none");
+
 var crosshairCH4 = svg.append("g")
     .attr("class", "crosshair")
     .attr("id", "crosshairCH4")
     .style("display", "none");
+
 var crosshairCO2 = svg.append("g")
     .attr("class", "crosshair")
     .attr("id", "crosshairCO2")
     .style("display", "none");
+
 var crosshairRest = svg.append("g")
     .attr("class", "crosshair")
     .attr("id", "crosshairRest")

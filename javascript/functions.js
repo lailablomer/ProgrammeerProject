@@ -12,101 +12,55 @@ function drawWorldMap(id, year) {
         // select right year from json
         data = data[year];
 
-        // change fillkeys for Datamap
-        if (id == 'button_GHG') {
-            for (country in data) {
-                if (data[country]['GHG'] > 4000) {
-                    data[country].fillKey = 'A';
-                }
-                else if (data[country]['GHG'] > 1000) {
-                    data[country].fillKey = 'B';
-                }
-                else if (data[country]['GHG'] > 500) {
-                    data[country].fillKey = 'C';
-                }
-                else if (data[country]['GHG'] > 100) {
-                    data[country].fillKey = 'D';
-                }
-                else if (data[country]['GHG'] > 50) {
-                    data[country].fillKey = 'E';
-                }
-                else {
-                    data[country].fillKey = 'F';
-                }
-            }
-            // change legend fill colors
+        if (id == "button_GHG") {
             worldmap_colors = GHG_colors;
             legend = legend_total[0];
         }
-        else if (id == 'button_Population') {
-            for (country in data) {
-                if (data[country]['population'] > 100000000) {
-                    data[country].fillKey = 'A'
-                }
-                else if (data[country]['population'] > 50000000) {
-                    data[country].fillKey = 'B'
-                }
-                else if (data[country]['population'] > 10000000) {
-                    data[country].fillKey = 'C'
-                }
-                else if (data[country]['population'] > 5000000) {
-                    data[country].fillKey = 'D'
-                }
-                else if (data[country]['population'] > 100000) {
-                    data[country].fillKey = 'E'
-                }
-                else {
-                    data[country].fillKey = 'F'
-                }
-            }
+        else if (id == "button_Population") {
             worldmap_colors = population_colors;
             legend = legend_total[1];
         }
         else {
-            for (country in data) {
-                if (data[country]['GDP'] > 10000000) {
-                    data[country].fillKey = 'A'
-                }
-                else if (data[country]['GDP'] > 1000000) {
-                    data[country].fillKey = 'B'
-                }
-                else if (data[country]['GDP'] > 500000) {
-                    data[country].fillKey = 'C'
-                }
-                else if (data[country]['GDP'] > 100000) {
-                    data[country].fillKey = 'D'
-                }
-                else if (data[country]['GDP'] > 50000) {
-                    data[country].fillKey = 'E'
-                }
-                else {
-                    data[country].fillKey = 'F'
-                }
-            }
             worldmap_colors = GDP_colors;
             legend = legend_total[2];
         }
 
-        // select fillColor
-        for (key in data) {
-            if (data[key].fillKey == 'A') {
-                data[key].fillColor = worldmap_colors[5]
+        for (country_key in data) {
+            if ((data[country_key]['GHG'] > 4000 && id == 'button_GHG') ||
+                    (data[country_key]['population'] > 100000000 && id == "button_Population") ||
+                    (data[country_key]['GDP'] > 10000000 && id == "button_GDP")) {
+                data[country_key].fillKey = 'A';
+                data[country_key].fillColor = worldmap_colors[5]
             }
-            if (data[key].fillKey == 'B') {
-                data[key].fillColor = worldmap_colors[4]
+            else if ((data[country_key]['GHG'] > 1000 && id == 'button_GHG') ||
+                    (data[country_key]['population'] > 50000000 && id == "button_Population") ||
+                    (data[country_key]['GDP'] > 1000000 && id == "button_GDP")) {
+                data[country_key].fillKey = 'B';
+                data[country_key].fillColor = worldmap_colors[4]
             }
-            if (data[key].fillKey == 'C') {
-                data[key].fillColor = worldmap_colors[3]
+            else if ((data[country_key]['GHG'] > 500 && id == 'button_GHG') ||
+                    (data[country_key]['population'] > 10000000 && id == "button_Population") ||
+                    (data[country_key]['GDP'] > 500000 && id == "button_GDP")) {
+                data[country_key].fillKey = 'C';
+                data[country_key].fillColor = worldmap_colors[3]
             }
-            if (data[key].fillKey == 'D') {
-                data[key].fillColor = worldmap_colors[2]
+            else if ((data[country_key]['GHG'] > 100 && id == 'button_GHG') ||
+                    (data[country_key]['population'] > 5000000 && id == "button_Population") ||
+                    (data[country_key]['GDP'] > 100000 && id == "button_GDP")) {
+                data[country_key].fillKey = 'D';
+                data[country_key].fillColor = worldmap_colors[2]
             }
-            if (data[key].fillKey == 'E') {
-                data[key].fillColor = worldmap_colors[1]
+            else if ((data[country_key]['GHG'] > 50 && id == 'button_GHG') ||
+                    (data[country_key]['population'] > 1000000 && id == "button_Population") ||
+                    (data[country_key]['GDP'] > 50000 && id == "button_GDP")) {
+                data[country_key].fillKey = 'E';
+                data[country_key].fillColor = worldmap_colors[1]
             }
-            if (data[key].fillKey == 'F') {
-                data[key].fillColor = worldmap_colors[0]
-            } }
+            else {
+                data[country_key].fillKey = 'F';
+                data[country_key].fillColor = worldmap_colors[0]
+            }
+        }
 
         // update Datamap coloring
         map.updateChoropleth(data);

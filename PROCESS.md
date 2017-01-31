@@ -60,3 +60,8 @@ Cleaning up code, and checking with Better Code Hub:
 * Too long files are divided in two or more,
 * re-writing function drawWorldMap()
 * deleting unnessecary comments, and out-commented code
+
+# day 17
+* Writing simpler pieces of code
+* Writing shorter pieces of code
+* Cleaning up repository

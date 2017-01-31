@@ -54,36 +54,42 @@ function setFillKey(data, id) {
                 (!data[country_key]['GDP'] && id == "button_GDP")) {
             data[country_key].fillColor = "grey";
         }
+
         else if ((data[country_key]['GHG'] > 4000 && id == 'button_GHG') ||
                 (data[country_key]['population'] > 250000000 && id == "button_Population") ||
                 (data[country_key]['GDP'] > 10000000 && id == "button_GDP")) {
             data[country_key].fillKey = 'A';
             data[country_key].fillColor = worldmap_colors[5]
         }
+
         else if ((data[country_key]['GHG'] > 1000 && id == 'button_GHG') ||
                 (data[country_key]['population'] > 50000000 && id == "button_Population") ||
                 (data[country_key]['GDP'] > 1000000 && id == "button_GDP")) {
             data[country_key].fillKey = 'B';
             data[country_key].fillColor = worldmap_colors[4]
         }
+
         else if ((data[country_key]['GHG'] > 500 && id == 'button_GHG') ||
                 (data[country_key]['population'] > 25000000 && id == "button_Population") ||
                 (data[country_key]['GDP'] > 500000 && id == "button_GDP")) {
             data[country_key].fillKey = 'C';
             data[country_key].fillColor = worldmap_colors[3]
         }
+
         else if ((data[country_key]['GHG'] > 100 && id == 'button_GHG') ||
                 (data[country_key]['population'] > 10000000 && id == "button_Population") ||
                 (data[country_key]['GDP'] > 100000 && id == "button_GDP")) {
             data[country_key].fillKey = 'D';
             data[country_key].fillColor = worldmap_colors[2]
         }
+
         else if ((data[country_key]['GHG'] > 50 && id == 'button_GHG') ||
                 (data[country_key]['population'] > 5000000 && id == "button_Population") ||
                 (data[country_key]['GDP'] > 50000 && id == "button_GDP")) {
             data[country_key].fillKey = 'E';
             data[country_key].fillColor = worldmap_colors[1]
         }
+
         else {
             data[country_key].fillKey = 'F';
             data[country_key].fillColor = worldmap_colors[0]

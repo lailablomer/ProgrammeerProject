@@ -1,6 +1,8 @@
 # Greenhouse Gas Emission
 
 ### Laila Blömer
+University of Amsterdam
+StudentID: 10563865
 ### Minor Computer Science fall 2017 - final project
 
 ## Introduction

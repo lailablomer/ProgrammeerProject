@@ -14,11 +14,11 @@ function drawWorldMap(id, year) {
         // select right year from json
         data = data[year];
 
-        if (id == "button_GHG") {
+        if (id == "GHG") {
             worldmap_colors = GHG_colors;
             legend = legend_total[0];
         }
-        else if (id == "button_Population") {
+        else if (id == "population") {
             worldmap_colors = population_colors;
             legend = legend_total[1];
         }
@@ -49,47 +49,33 @@ function drawWorldMap(id, year) {
 // loops through one-year data and changes fillKey and -Color according to id
 function setFillKey(data, id) {
     for (country_key in data) {
-        if ((!data[country_key]['GHG'] && id == 'button_GHG') ||
-                (!data[country_key]['population'] && id == "button_Population") ||
-                (!data[country_key]['GDP'] && id == "button_GDP")) {
+        if (!data[country_key][id]) {
             data[country_key].fillColor = "grey";
         }
-
-        else if ((data[country_key]['GHG'] > 4000 && id == 'button_GHG') ||
-                (data[country_key]['population'] > 250000000 && id == "button_Population") ||
-                (data[country_key]['GDP'] > 10000000 && id == "button_GDP")) {
+        else if (data[country_key][id] > colorcoding[id][0]) {
             data[country_key].fillKey = 'A';
             data[country_key].fillColor = worldmap_colors[5]
         }
 
-        else if ((data[country_key]['GHG'] > 1000 && id == 'button_GHG') ||
-                (data[country_key]['population'] > 50000000 && id == "button_Population") ||
-                (data[country_key]['GDP'] > 1000000 && id == "button_GDP")) {
+        else if (data[country_key][id] > colorcoding[id][1]) {
             data[country_key].fillKey = 'B';
             data[country_key].fillColor = worldmap_colors[4]
         }
 
-        else if ((data[country_key]['GHG'] > 500 && id == 'button_GHG') ||
-                (data[country_key]['population'] > 25000000 && id == "button_Population") ||
-                (data[country_key]['GDP'] > 500000 && id == "button_GDP")) {
+        else if (data[country_key][id] > colorcoding[id][2]) {
             data[country_key].fillKey = 'C';
             data[country_key].fillColor = worldmap_colors[3]
         }
 
-        else if ((data[country_key]['GHG'] > 100 && id == 'button_GHG') ||
-                (data[country_key]['population'] > 10000000 && id == "button_Population") ||
-                (data[country_key]['GDP'] > 100000 && id == "button_GDP")) {
+        else if (data[country_key][id] > colorcoding[id][3]) {
             data[country_key].fillKey = 'D';
             data[country_key].fillColor = worldmap_colors[2]
         }
 
-        else if ((data[country_key]['GHG'] > 50 && id == 'button_GHG') ||
-                (data[country_key]['population'] > 5000000 && id == "button_Population") ||
-                (data[country_key]['GDP'] > 50000 && id == "button_GDP")) {
+        else if (data[country_key][id] > colorcoding[id][4]) {
             data[country_key].fillKey = 'E';
             data[country_key].fillColor = worldmap_colors[1]
         }
-
         else {
             data[country_key].fillKey = 'F';
             data[country_key].fillColor = worldmap_colors[0]
@@ -414,24 +400,24 @@ function writePieTable(year, population, gdp, emission) {
 
     // change population size
     if (!population) {
-        d3.select("td#population").transition().text("Unknown");
+        d3.select("td#people").transition().text("Unknown");
     }
     else if (population < 1000000) {
-        d3.select("td#population").transition().text(Math.round(population / 1000) + " Thousand");
+        d3.select("td#people").transition().text(Math.round(population / 1000) + " Thousand");
     }
     else {
-        d3.select("td#population").transition().text(Math.round(population / 1000000) + " Million");
+        d3.select("td#people").transition().text(Math.round(population / 1000000) + " Million");
     }
 
     // change GDP amount
     if (!gdp) {
-        d3.select("td#gdp").transition().text("Unknown");
+        d3.select("td#product").transition().text("Unknown");
     }
     else if (gdp < 1000000) {
-        d3.select("td#gdp").transition().text(Math.round(gdp / 1000) + "K");
+        d3.select("td#product").transition().text(Math.round(gdp / 1000) + "K");
     }
     else {
-        d3.select("td#gdp").transition().text(Math.round(gdp / 1000000) + "M");
+        d3.select("td#product").transition().text(Math.round(gdp / 1000000) + "M");
     }
 
     // change emission

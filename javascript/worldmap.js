@@ -41,6 +41,10 @@ var legend_total = [{labels: {
         "F": "< 50 Thousand" }}];
 var legend = {};
 
+var colorcoding = {"GHG": [4000, 1000, 500, 100, 50],
+    "population": [250000000, 50000000, 25000000, 10000000, 5000000],
+    "GDP": [10000000, 1000000, 500000, 100000, 50000]};
+
 // initializing worldmap
 var map = new Datamap({
     element: document.getElementById("worlddata"),

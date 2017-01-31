@@ -8,7 +8,7 @@
  */
 
 // initial variables
-var world_data = "button_GHG";
+var world_data = "GHG";
 var country_id = "NLD";
 var pie_data = 0;
 

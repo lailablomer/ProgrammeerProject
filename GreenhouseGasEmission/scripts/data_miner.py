@@ -10,9 +10,7 @@ import json, csv
 data_array = {}
 linegraph = {}
 
-# array with country codes
-country_codes = [
-    ["af", "AFG", "Afghanistan"],
+country_codes = [["af", "AFG", "Afghanistan"],
     ["ax", "ALA", "Aland Islands"],
     ["al", "ALB", "Albania"],
     ["dz", "DZA", "Algeria"],
@@ -261,7 +259,7 @@ country_codes = [
     ["eh", "ESH", "Western Sahara"],
     ["ye", "YEM", "Yemen"],
     ["zm", "ZMB", "Zambia"],
-    ["zw", "ZWE", "Zimbabwe"] ]
+    ["zw", "ZWE", "Zimbabwe"]]
 
 with open('../data/GHG_Emission.csv', 'rb') as input:
     workbook_GHG = csv.reader(input, delimiter=',')

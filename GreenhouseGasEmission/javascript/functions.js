@@ -27,47 +27,8 @@ function drawWorldMap(id, year) {
             legend = legend_total[2];
         }
 
-        for (country_key in data) {
-            if ((!data[country_key]['GHG'] && id == 'button_GHG') ||
-                    (!data[country_key]['population'] && id == "button_Population") ||
-                    (!data[country_key]['GDP'] && id == "button_GDP")) {
-                data[country_key].fillColor = "grey";
-            }
-            else if ((data[country_key]['GHG'] > 4000 && id == 'button_GHG') ||
-                    (data[country_key]['population'] > 100000000 && id == "button_Population") ||
-                    (data[country_key]['GDP'] > 10000000 && id == "button_GDP")) {
-                data[country_key].fillKey = 'A';
-                data[country_key].fillColor = worldmap_colors[5]
-            }
-            else if ((data[country_key]['GHG'] > 1000 && id == 'button_GHG') ||
-                    (data[country_key]['population'] > 50000000 && id == "button_Population") ||
-                    (data[country_key]['GDP'] > 1000000 && id == "button_GDP")) {
-                data[country_key].fillKey = 'B';
-                data[country_key].fillColor = worldmap_colors[4]
-            }
-            else if ((data[country_key]['GHG'] > 500 && id == 'button_GHG') ||
-                    (data[country_key]['population'] > 10000000 && id == "button_Population") ||
-                    (data[country_key]['GDP'] > 500000 && id == "button_GDP")) {
-                data[country_key].fillKey = 'C';
-                data[country_key].fillColor = worldmap_colors[3]
-            }
-            else if ((data[country_key]['GHG'] > 100 && id == 'button_GHG') ||
-                    (data[country_key]['population'] > 5000000 && id == "button_Population") ||
-                    (data[country_key]['GDP'] > 100000 && id == "button_GDP")) {
-                data[country_key].fillKey = 'D';
-                data[country_key].fillColor = worldmap_colors[2]
-            }
-            else if ((data[country_key]['GHG'] > 50 && id == 'button_GHG') ||
-                    (data[country_key]['population'] > 1000000 && id == "button_Population") ||
-                    (data[country_key]['GDP'] > 50000 && id == "button_GDP")) {
-                data[country_key].fillKey = 'E';
-                data[country_key].fillColor = worldmap_colors[1]
-            }
-            else {
-                data[country_key].fillKey = 'F';
-                data[country_key].fillColor = worldmap_colors[0]
-            }
-        }
+        // change fillKeys and fillColors
+        setFillKey(data, id);
 
         // update Datamap coloring
         map.updateChoropleth(data);
@@ -80,9 +41,54 @@ function drawWorldMap(id, year) {
         d3.selectAll(".datamaps-legend dd")
             .each(function(d, i) {
                 d3.select(this)
-                    .style("background-color", worldmap_colors[5 - i])
+                    .style("background-color", worldmap_colors[i])
             });
     });
+}
+
+// loops through one-year data and changes fillKey and -Color according to id
+function setFillKey(data, id) {
+    for (country_key in data) {
+        if ((!data[country_key]['GHG'] && id == 'button_GHG') ||
+                (!data[country_key]['population'] && id == "button_Population") ||
+                (!data[country_key]['GDP'] && id == "button_GDP")) {
+            data[country_key].fillColor = "grey";
+        }
+        else if ((data[country_key]['GHG'] > 4000 && id == 'button_GHG') ||
+                (data[country_key]['population'] > 250000000 && id == "button_Population") ||
+                (data[country_key]['GDP'] > 10000000 && id == "button_GDP")) {
+            data[country_key].fillKey = 'A';
+            data[country_key].fillColor = worldmap_colors[5]
+        }
+        else if ((data[country_key]['GHG'] > 1000 && id == 'button_GHG') ||
+                (data[country_key]['population'] > 50000000 && id == "button_Population") ||
+                (data[country_key]['GDP'] > 1000000 && id == "button_GDP")) {
+            data[country_key].fillKey = 'B';
+            data[country_key].fillColor = worldmap_colors[4]
+        }
+        else if ((data[country_key]['GHG'] > 500 && id == 'button_GHG') ||
+                (data[country_key]['population'] > 25000000 && id == "button_Population") ||
+                (data[country_key]['GDP'] > 500000 && id == "button_GDP")) {
+            data[country_key].fillKey = 'C';
+            data[country_key].fillColor = worldmap_colors[3]
+        }
+        else if ((data[country_key]['GHG'] > 100 && id == 'button_GHG') ||
+                (data[country_key]['population'] > 10000000 && id == "button_Population") ||
+                (data[country_key]['GDP'] > 100000 && id == "button_GDP")) {
+            data[country_key].fillKey = 'D';
+            data[country_key].fillColor = worldmap_colors[2]
+        }
+        else if ((data[country_key]['GHG'] > 50 && id == 'button_GHG') ||
+                (data[country_key]['population'] > 5000000 && id == "button_Population") ||
+                (data[country_key]['GDP'] > 50000 && id == "button_GDP")) {
+            data[country_key].fillKey = 'E';
+            data[country_key].fillColor = worldmap_colors[1]
+        }
+        else {
+            data[country_key].fillKey = 'F';
+            data[country_key].fillColor = worldmap_colors[0]
+        }
+    }
 }
 
 // update pie chart, linegraph, info tables on click
@@ -434,24 +440,33 @@ function updateLabels(labels) {
 
     // for each label, check if it overlaps with another label
     labels.each(function(d, i) {
+        var prevbb = this.getBoundingClientRect();
+        var thisbb = this.getBoundingClientRect();
+
         if(i > 0) {
-            var thisbb = this.getBoundingClientRect(),
-                prevbb = prev.getBoundingClientRect();
+            thisbb = this.getBoundingClientRect();
+            prevbb = prev.getBoundingClientRect();
 
-            // move if they overlap
-            if(!(thisbb.right < prevbb.left || thisbb.left > prevbb.right ||
-                    thisbb.bottom < prevbb.top || thisbb.top > prevbb.bottom)) {
-                var ctx = thisbb.left + (thisbb.right - thisbb.left)/2,
-                    cty = thisbb.top + (thisbb.bottom - thisbb.top)/2,
-                    cpx = prevbb.left + (prevbb.right - prevbb.left)/2,
-                    cpy = prevbb.top + (prevbb.bottom - prevbb.top)/2,
-                    off = Math.sqrt(Math.pow(ctx - cpx, 2) + Math.pow(cty - cpy, 2))/2;
-
-                // move label
-                d3.select(this).attr("transform", "translate(" + Math.cos(((d.startAngle
-                    + d.endAngle - Math.PI) / 2)) * (radius + textOffset + off) + ","
-                    + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2) * (radius + textOffset + off) + ")"); }
+            // if (i == 3){
+            //     thisbb = first;
+            //     prevbb = this.getBoundingClientRect()
+            // }
         }
+
+        // move if they overlap
+        if(!(thisbb.right < prevbb.left || thisbb.left > prevbb.right ||
+                thisbb.bottom < prevbb.top || thisbb.top > prevbb.bottom)) {
+            var ctx = thisbb.left + (thisbb.right - thisbb.left)/2,
+                cty = thisbb.top + (thisbb.bottom - thisbb.top)/2,
+                cpx = prevbb.left + (prevbb.right - prevbb.left)/2,
+                cpy = prevbb.top + (prevbb.bottom - prevbb.top)/2,
+                off = Math.sqrt(Math.pow(ctx - cpx, 2) + Math.pow(cty - cpy, 2))/2;
+
+            // move label
+            d3.select(this).attr("transform", "translate(" + Math.cos(((d.startAngle
+                + d.endAngle - Math.PI) / 2)) * (radius + textOffset + off) + ","
+                + Math.sin((d.startAngle + d.endAngle - Math.PI) / 2) * (radius + textOffset + off) + ")"); }
+
         prev = this;
     });
 }

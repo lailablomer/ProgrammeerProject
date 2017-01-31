@@ -25,12 +25,13 @@ var legend_total = [{labels: {
         "E": "50 - 100 Mt",
         "F": "< 50 Mt" }},
     {labels: {
-        "A": "> 100 Million",
-        "B": "50 - 100 MM",
-        "C": "10 - 50 MM",
-        "D": "1 - 10 MM",
-        "E": "100 - 1000 M",
-        "F": "< 100 Thousand" }},
+        "F": "< 5 Million",
+        "E": "5 - 10 M",
+        "D": "10 - 25 M",
+        "C": "25 - 50M",
+        "B": "50 - 250 M",
+        "A": "> 250 Million"}
+    },
     {labels: {
         "A": "> 10 Million",
         "B": "1 - 10M",
@@ -55,8 +56,8 @@ var map = new Datamap({
                 return "<div class=hoverinfo <strong>"+ geo.properties.name +": No data</strong></div>"; }
         },
         highlightOnHover: true,
-        highlightFillColor: "#ae017e",
-        highlightBorderColor: "#fff",
+        highlightFillColor: "lightgrey",
+        highlightBorderColor: "#444",
         borderColor: "#111",
         borderWidth: 0.5,
         transparency: 15,
@@ -64,12 +65,12 @@ var map = new Datamap({
     },
     fills: {
         defaultFill: "grey",
-        "A": legend[5],
-        "B": legend[4],
-        "C": legend[3],
-        "D": legend[2],
+        "F": legend[0],
         "E": legend[1],
-        "F": legend[0]
+        "D": legend[2],
+        "C": legend[3],
+        "B": legend[4],
+        "A": legend[5]
     }
 });
 

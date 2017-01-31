@@ -1,7 +1,6 @@
 # Greenhouse Gas Emission
 
-# Laila Blömer
-
+### Laila Blömer
 University of Amsterdam
 StudentID: 10563865
 
@@ -43,12 +42,13 @@ All visualisations are in D3 v3. Most of the styling is included in the css fold
 
 ### Acknowledgements
 
-* d3.slider javascript and css files              Copyright (c) 2013, Bjorn Sandvik - http://blog.thematicmapping.org
-* Bootstrap v3.3.7 (http://getbootstrap.com)      Copyright 2011-2016 Twitter, Inc.
-* /javascript/jquery-3.1.1.min.js                 Copyright (c) JS Foundation - https://js.foundation/pdf/ip-policy.pdf
-* Greenhouse Gas Emission data                    CAIT Climate Data Explorer. 2015. Washington, DC: World Resources Institute.
+* d3.slider javascript and css files              - Copyright (c) 2013, Bjorn Sandvik - http://blog.thematicmapping.org
+* Bootstrap v3.3.7 (http://getbootstrap.com)      - Copyright 2011-2016 Twitter, Inc.
+* /javascript/jquery-3.1.1.min.js                 - Copyright (c) JS Foundation - https://js.foundation/pdf/ip-policy.pdf
+* Greenhouse Gas Emission data                    - CAIT Climate Data Explorer. 2015. Washington, DC: World Resources Institute.
 
 
 ![BCH compliance](https://bettercodehub.com/edge/badge/lailablomer/ProgrammeerProject)
+
 
 Copyright (c) 2016-2017, Laila Blömer

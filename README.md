@@ -1,8 +1,7 @@
-﻿# Computer Science Project
-* Laila Blömer 
-* 10563865
-* Bèta Gamma Bachelor
-* Minor Programmeren fall 2017
+# Greenhouse Gas Emission
+
+* Laila Blömer
+* Minor Computer Science fall 2017 - final project
 
 ## Introduction
 This repository contains a D3 visualization of greenhouse gas (GHG) emissions over time, worldwide. GHG emissions are shown in three interactive, interlinked visualizations; a Datamap showing the total GHG emissions, population and GDP per country per year, a pie chart displaying different GHG for one country, and a multi-linegraph showing emissions for one country over time. Also, additional background information is displayed in tables. 

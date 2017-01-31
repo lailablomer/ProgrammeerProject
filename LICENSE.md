@@ -22,7 +22,7 @@ SOFTWARE.
 
 --------------------------------------------------------------------------
 
-Some files located in GreenhouseGasEmission folder and external directories are
+Some files located in this repository and external directories are
 externally maintained libraries used by this software which have their
 own licenses; we recommend you read them, as their terms may differ from
 the terms above.

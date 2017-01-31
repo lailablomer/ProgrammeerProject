@@ -1,6 +1,6 @@
 exclude:
-- /GreenhouseGasEmission/javascript/d3.slider.js
-- /GreenhouseGasEmission/scripts/data_miner.py
+- /javascript/d3.slider.js
+- /scripts/data_miner.py
 component_depth: 1
 languages:
 - javascript

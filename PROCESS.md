@@ -54,3 +54,9 @@ Fixing bugs!
 * Fixing bootstrap > making better use of rows and columns, this fixes most of the scaling problem. 
 * Cleaning up code: different stylesheets for the different columns on the page, and creating a separate js file with functions.
 * on-click event in the linegraph: clicking a gas in the legend will change the information displayed in the info table, and the molecule visualization.
+
+# day 16
+Cleaning up code, and checking with Better Code Hub:
+* Too long files are divided in two or more,
+* re-writing function drawWorldMap()
+* deleting unnessecary comments, and out-commented code

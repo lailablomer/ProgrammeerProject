@@ -15,3 +15,12 @@ Tasklist:
 * Write shorter units of code
 
 ![alt tag](https://github.com/lailablomer/ProgrammeerProject/blob/master/doc/BCH02.PNG)
+
+## Third analysis
+
+Tasklist:
+* Write shorter units of code:
+  * linergraph.js
+  * functions.js:pie.object.render
+
+![alt tag](https://github.com/lailablomer/ProgrammeerProject/blob/master/doc/BCH03.PNG)

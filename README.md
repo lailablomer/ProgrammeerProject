@@ -1,8 +1,10 @@
 # Greenhouse Gas Emission
 
 ### Laila Blömer
+
 University of Amsterdam
 StudentID: 10563865
+
 ### Minor Computer Science fall 2017 - final project
 
 ## Introduction
@@ -39,4 +41,4 @@ As additional information, the molecules of CO2, CH4 and N2O are visualized usin
 ## Programming
 All visualisations are in D3 version 3! Most of the styling is included in the css folder. Bootstrap was used to design the page. 
 
-[![BCH compliance](https://bettercodehub.com/edge/badge/lailablomer/ProgrammeerProject)]
+![BCH compliance](https://bettercodehub.com/edge/badge/lailablomer/ProgrammeerProject)

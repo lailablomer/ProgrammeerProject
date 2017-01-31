@@ -18,14 +18,22 @@ The visualizations provide a tool into a better understanding of GHG emissions w
 ### Worldmap
 This mercator scope Datamap shows the annual GHG emissions in CO2 equivalent (CO2e) per country. Buttons on top of the worldmap allow the user to switch between datasets displaying GHG emissions, population size, and GDP. At the bottom of the map a D3 slider allows the user to look through different years from 1990 - 2012 for all three datasets. Hovering over a country will provide the viewer with that country's name. Clicking on a country will change the datasets of the piechart and linegraph. Changing the indicated year at the slider will affect the piechart and worldmap.
 
+![alt tag](https://github.com/lailablomer/ProgrammeerProject/doc/datamap.png)
+
 ### Piechart
 This donut chaped piechart displays the carbon dioxide, methane, nitrous oxide and rest gas emissions of one year for one country. Next to the piechart a table displays the year, total emission (in CO2e), population size and GDP of the selected country. Hovering over the arcs of the piechart will display the percentage of the arcs' gas in the middle of the piechart, and the specific gas and exact amount (in CO2e) are added to the table. Clicking an arc of the piechart will change the other table on the html page, and display additional information about that specific gas. Also, the click event will interact with the molecule visualization.
+
+![alt tag](https://github.com/lailablomer/ProgrammeerProject/doc/piechart.png)
 
 ### Linegraph
 The multi-linegraph is displayed under the worldmap, and shows the emission of different GHG's (CO2, CH4, N2O, rest) over time (1990 - 2012). Hovering over the graph will display the exact emission values in CO2e for that year. Clicking the legend entries will alter the molecule graph and change the information displayed in the table. 
 
+![alt tag](https://github.com/lailablomer/ProgrammeerProject/doc/linegraph.png)
+
 ### Molecule
 As additional information, the molecules of CO2, CH4 and N2O are visualized using D3. Clicking an arc on the piechart will result in the display of the selected molecule (exect if 'Rest' is selected, which is not a molecule, but the sum of other gases emitted). The chart is interactive: the user can turn and drag the molecule by clicking and dragging it. 
+
+![alt tag](https://github.com/lailablomer/ProgrammeerProject/doc/molecule.png)
 
 ## Programming
 All visualisations are in D3 version 3! Most of the styling is included in the css folder. Bootstrap was used to design the page. 

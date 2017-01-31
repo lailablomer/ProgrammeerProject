@@ -39,5 +39,4 @@ As additional information, the molecules of CO2, CH4 and N2O are visualized usin
 ## Programming
 All visualisations are in D3 version 3! Most of the styling is included in the css folder. Bootstrap was used to design the page. 
 
-
-[![BCH compliance](https://bettercodehub.com/edge/badge/lailablomer/ProgrammeerProject)](https://bettercodehub.com)
+[![BCH compliance](https://bettercodehub.com/edge/badge/lailablomer/ProgrammeerProject)]

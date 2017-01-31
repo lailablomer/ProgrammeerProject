@@ -1,6 +1,5 @@
 exclude:
 - /javascript/d3.slider.js
-- /scripts/data_miner.py
 component_depth: 1
 languages:
 - javascript

@@ -47,6 +47,8 @@ All visualisations are in D3 v3. Most of the styling is included in the css fold
 * /javascript/jquery-3.1.1.min.js                 - Copyright (c) JS Foundation - https://js.foundation/pdf/ip-policy.pdf
 * Greenhouse Gas Emission data                    - CAIT Climate Data Explorer. 2015. Washington, DC: World Resources Institute.
 
-[![BCH compliance](https://bettercodehub.com/edge/badge/lailablomer/ProgrammeerProject)]
 
-Copyright (c) 2017, lailablomer
+![BCH compliance](https://bettercodehub.com/edge/badge/lailablomer/ProgrammeerProject)
+
+
+Copyright (c) 2017 lailablomer

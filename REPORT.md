@@ -1,15 +1,15 @@
 # Report
-
-### Laila Blömer
-### Computer Science Fall 2017
+Laila Blömer
+University of Amsterdam
+studentID: 10563865
+Computer Science Fall 2017
 
 ## Introduction
 This computer science project shows the greenhouse gas (GHG) emission world wide in the period 1990 - 2012. The interactive visualisations enable the user to look at the specific gasses per country per year (in a piechart and table), to compare the gas emission with population size and gross domestic product, and to see the gas emission changing over time (in a linegraph). As an extra, additional information about the specific gasses is displayed in a table and molecule graph.
 
 ![alt tag](https://github.com/lailablomer/ProgrammeerProject/blob/master/doc/GHGEmission.PNG)
 
-## Technical design
-The 'story' the data visulisations tell start with the worldmap. This displays the GHG emission. Clicking a country will alter the other visualisations. 
+The 'story' the data visulisations tell start with the worldmap. This displays the GHG emission. Clicking a country will alter the other visualisations.
 
 ### Worldmap
 This mercator scope Datamap shows the annual GHG emissions in CO2 equivalent (CO2e) per country. Buttons on top of the worldmap allow the user to switch between datasets displaying GHG emissions, population size, and GDP. At the bottom of the map a D3 slider allows the user to look through different years from 1990 - 2012 for all three datasets. Hovering over a country will provide the viewer with that country's name. On hoverover a popup shows the name of the country. On click, the piechart and linegraph change. The changes have a duration of 200 ms, to make the transition look smooth. Changing the indicated year at the slider will affect the piechart and worldmap. 
@@ -24,3 +24,24 @@ The multi-linegraph is displayed under the worldmap, and shows the emission of d
 
 ### Molecule
 As additional information, the molecules of CO2, CH4 and N2O are visualized using D3. Clicking an arc on the piechart or a gas in the linegraph's legend will result in the display of the selected molecule (exect if 'Rest' is selected, which is not a molecule, but the sum of other gases emitted). The chart is interactive: the user can turn and drag the molecule by clicking and dragging it.
+
+## Technical design
+The repository contains an index.html to load the page. All the other code is distributed in a couple of folders:
+* script: folder contains python files needed to format the data from csv to json.
+* javascript: contains all javascript files.
+* css: contains all the stylesheets.
+* doc: contains all images used. 
+
+### HTML
+index.html contains all html code from the project. In the head the title of the page is defined, all the stylesheets are loaded in, as well as d3.v3, bootstrap and jQuery javascript files.
+
+The body tag contains a container with the design structure of the page. This placements of the elemements is done with bootstrap. Below the container my javascript scripts are linked. 
+
+### External libraries 
+
+
+### Javascript
+
+
+### CSS
+

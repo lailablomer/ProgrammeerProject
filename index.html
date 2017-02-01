@@ -22,122 +22,203 @@
 
 </head>
 <body>
-    <div id="container" class="container-fluid">
-        <div class="row">
-            <header>GREENHOUSE GAS EMISSIONS</header>
-        </div>
-        <div class="row">
-
-        </div>
-        <div class="row">
-            <div class="col-lg-7">
-                <div class="row" id="worlddata-row">
-                    <div class="row">
-                        <button type="button" class="button" id="GHG">Greenhouse Gases</button>
-                        <button type="button" class="button" id="population">Population</button>
-                        <button type="button" class="button" id="GDP">Gross Domestic Product</button>
-                    </div>
-                    <div class="row" id="worlddata"></div>
-                    <div class="row" id="slider"></div>
-                </div>
-                <div class="row">
-                    <div id="multi_linegraph">
-                        <h3 id="linegraph-title">Netherlands</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-5">
-                <div class="row" id="pie-row">
-                    <div id="pie" class="col-lg-6"></div>
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <h3 id="country_name">Netherlands</h3>
-                        </div>
-                        <div class="row">
-                            <table id="pie-table" class="table">
-                                <tbody>
-                                    <tr>
-                                        <td class="first">Year</td>
-                                        <td id="year" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Population</td>
-                                        <td id="people" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">GDP (USD)</td>
-                                        <td id="product" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Total Emission</td>
-                                        <td id="emission" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first" id="gas-title"></td>
-                                        <td id="gas" class="second"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div id="gas_info">
-                        <div class="row">
-                            <h3 id="title"></h3>
-                        </div>
-                        <div class="row">
-                            <table id="gas-table" class="table">
-                                <tbody>
-                                    <tr>
-                                        <td class="first">Chemical Formula</td>
-                                        <td id="formula" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Molecular Weight</td>
-                                        <td id="weight" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Properties</td>
-                                        <td id="properties" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Production</td>
-                                        <td id="production" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Uses</td>
-                                        <td id="uses" class="second">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Biological Role</td>
-                                        <td id="role" class="second">-</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <svg id="molecule" class="img-responsive"></svg>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <footer>LAILA BLÖMER
-                <br>Source: CAIT Climate Data Explorer. 2015. Washington, DC: World Resources Institute.
-            </footer>
-        </div>
-    </div>
-
-    <script src="javascript/d3.slider.js"></script>
-    <script src="javascript/functions.js"></script>
-    <script src="javascript/worldmap.js"></script>
-    <script src="javascript/linegraph.js"></script>
-    <script src="javascript/molecule.js"></script>
-
-    <script src="javascript/main.js"></script>
+	<div class="container-fluid" id="container">
+		<div class="row">
+			<header>
+				GREENHOUSE GAS EMISSIONS
+			</header><input data-target="#myModal" data-toggle="modal" id="infoBtn" src=
+			"doc/infobutton.png" type="image">
+			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog modal-lg" style="width: 70%">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="close" data-dismiss="modal">&times;</span> <img id=
+							"infobtnheader" src="doc/infobutton.png">
+							<h3>GREENHOUSE GAS EMISSIONS</h3>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-lg-10 col-lg-offset-1">
+									<h4 style="font-weight: bold">This computer science project shows the
+									greenhouse gas (GHG) emission world wide in the period 1990 - 2012.
+									The interactive visualisations enable the user to look at the specific
+									gasses per country per year, to compare the gas emission with
+									population size and gross domestic product, and to see the gas
+									emission changing over time.</h4>
+								</div>
+							</div><br>
+							<div class="row">
+                                <div class="col-lg-10 col-lg-offset-1">
+                                    <b>The worldmap</b> shows the annual GHG emissions in CO2 equivalent (CO2e)
+                                    per country. Buttons on top of the worldmap allow the user to switch between
+                                    datasets displaying GHG emissions, population size, and GDP. At the bottom
+                                    of the map a D3 slider allows the user to look through different years from
+                                    1990 - 2012 for all three datasets. Also, changing the year at the slider
+                                    will affect the piechart. Hovering over a country will provide the viewer
+                                    with that country's name. On hoverover a popup shows the name of the
+                                    country. On click, the piechart and linegraph change.
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-lg-10 col-lg-offset-1">
+                                    <b>The piechart</b> displays the carbon dioxide, methane, nitrous oxide and
+                                    rest gas emissions of one year for one country. Next to the piechart a table
+                                    displays the year, total emission (in CO2e), population size and GDP of the
+                                    selected country. Hovering over the arcs of the piechart will display the
+                                    percentage of the arcs' gas in the middle of the piechart (in the same color
+                                    as the corresponding arc), and the specific gas and exact amount (in CO2e)
+                                    are added to the table. Clicking an arc of the piechart will change the
+                                    other table on the html page, and display additional information about that
+                                    specific gas. Also, the click event will interact with the molecule
+                                    visualization.
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-lg-10 col-lg-offset-1">
+                                    <b>The linegraph</b> is displayed under the worldmap, and shows the emission
+                                    of different GHG's (CO2, CH4, N2O, rest) over time (1990 - 2012). Hovering
+                                    over the graph will display the exact emission values in CO2e for that year.
+                                    The coloring of Clicking the legend entries will alter the molecule graph
+                                    and change the information displayed in the table.
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-lg-10 col-lg-offset-1">
+                                    <b>The molecule graph</b> displays the molecular structure of CO2, CH4 and
+                                    N2O. Clicking an arc on the piechart or a gas in the linegraph's legend will
+                                    result in the display of the selected molecule (except if 'Rest' is
+                                    selected, which is not a molecule, but the sum of other gases emitted). The
+                                    chart is interactive: the user can turn and drag the molecule by clicking
+                                    and dragging it. The table above the graph provides additional information
+                                    about the gas.
+                                </div>
+                            </div><br>
+							<div class="row">
+								<div align="center" id="sources">
+									<i>Source: CAIT Climate Data Explorer. 2015. Washington, DC: World
+									Resources Institute.</i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row"></div>
+		<div class="row">
+			<div class="col-lg-7">
+				<div class="row" id="worlddata-row">
+					<div class="row">
+						<button class="button" id="GHG" type="button">Greenhouse Gases</button>
+						<button class="button" id="population" type="button">Population</button>
+						<button class="button" id="GDP" type="button">Gross Domestic
+						Product</button>
+					</div>
+					<div class="row" id="worlddata"></div>
+					<div class="row" id="slider"></div>
+				</div>
+				<div class="row">
+					<div id="multi_linegraph">
+						<h3 id="linegraph-title">Netherlands</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="row" id="pie-row">
+					<div class="col-lg-6" id="pie"></div>
+					<div class="col-lg-6">
+						<div class="row">
+							<h3 id="country_name">Netherlands</h3>
+						</div>
+						<div class="row">
+							<table class="table" id="pie-table">
+								<tbody>
+									<tr>
+										<td class="first">Year</td>
+										<td class="second" id="year">-</td>
+									</tr>
+									<tr>
+										<td class="first">Population</td>
+										<td class="second" id="people">-</td>
+									</tr>
+									<tr>
+										<td class="first">GDP (USD)</td>
+										<td class="second" id="product">-</td>
+									</tr>
+									<tr>
+										<td class="first">Total Emission</td>
+										<td class="second" id="emission">-</td>
+									</tr>
+									<tr>
+										<td class="first" id="gas-title"></td>
+										<td class="second" id="gas"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div id="gas_info">
+						<div class="row">
+							<h3 id="title"></h3>
+						</div>
+						<div class="row">
+							<table class="table" id="gas-table">
+								<tbody>
+									<tr>
+										<td class="first">Chemical Formula</td>
+										<td class="second" id="formula">-</td>
+									</tr>
+									<tr>
+										<td class="first">Molecular Weight</td>
+										<td class="second" id="weight">-</td>
+									</tr>
+									<tr>
+										<td class="first">Properties</td>
+										<td class="second" id="properties">-</td>
+									</tr>
+									<tr>
+										<td class="first">Production</td>
+										<td class="second" id="production">-</td>
+									</tr>
+									<tr>
+										<td class="first">Uses</td>
+										<td class="second" id="uses">-</td>
+									</tr>
+									<tr>
+										<td class="first">Biological Role</td>
+										<td class="second" id="role">-</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+							<svg class="img-responsive" id="molecule"></svg>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<footer>
+				LAILA BLÖMER<br>
+				Source: CAIT Climate Data Explorer. 2015. Washington, DC: World Resources
+				Institute.
+			</footer>
+		</div>
+	</div>
+	<script src="javascript/d3.slider.js">
+	</script>
+	<script src="javascript/functions.js">
+	</script>
+	<script src="javascript/worldmap.js">
+	</script>
+	<script src="javascript/linegraph.js">
+	</script>
+	<script src="javascript/molecule.js">
+	</script>
+	<script src="javascript/main.js">
+	</script>
 </body>
 </html>

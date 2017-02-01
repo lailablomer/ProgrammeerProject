@@ -300,6 +300,63 @@ function nestData(data) {
     y.domain([d3.min(data, function (d) {return d.Amount;}), d3.max(data, function (d) {return d.Amount;})]);
 }
 
+// draws first linegraph
+function firstLinegraph() {
+    d3.json("scripts/data_linegraph.json", function(error, data) {
+        if (error) throw error;
+
+        data = data.NLD;
+
+        // nest the data
+        nestData(data);
+
+        // spacing of line legend
+        var legendSpace = width/dataNest.length;
+
+        // add the x axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        // add the y axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .attr("text-anchor", "end")
+            .text("Million Tonnes");
+
+        // draw lines
+        dataNest.forEach(function(d, i) {
+            svg.append("path")
+                .attr("class", "line")
+                .attr("d", gasline(d.values))
+                .style("stroke", function() {
+                    return pie_colors[d.key]; });
+
+            // add legend
+            svg.append("text")
+                .attr("x", (legendSpace/2)+i*legendSpace)
+                .attr("y", height + margin.bottom)
+                .attr("class", "line-legend")
+                .style("fill", function() {
+                    return d.color = pie_colors[d.key]; })
+                .text(d.key)
+
+                // add interactive element: on legend-click table information and molecule change
+                .on("click", function () {
+                    if (this.innerHTML != "Rest") {
+                        writeTable(this.innerHTML);
+                        changeMolecule(this.innerHTML);
+                    } });
+        });
+    });
+}
+
 // draws and updates linegraph
 function drawLinegraph(id) {
     d3.json('scripts/data_linegraph.json', function(error, data) {

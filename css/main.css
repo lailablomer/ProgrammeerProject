@@ -11,7 +11,7 @@ body {
     font-weight: bold;
 }
 
-header {
+header, .modal-header {
     margin-bottom: 10px;
     color: white;
     background-color: black;
@@ -60,4 +60,27 @@ td {
 td.first {
     width: 110px;
     font-size: 14px;
+}
+
+#infoBtn {
+    background: black;
+    position: absolute;
+    top: 17px;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+}
+#infobtnheader {
+    width: 35px;
+    height: 35px;
+}
+
+.modal-body {
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.close {
+    color: white !important;
+    opacity: 1 !important;
 }

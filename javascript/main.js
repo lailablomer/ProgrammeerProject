@@ -22,7 +22,7 @@ slider.call(d3.slider().value(100).on("slide", function(evt, value) {
 }));
 d3.select("#handle-one").remove();
 
-// call buttons
+// call buttons click-on element
 d3.selectAll(".button").on("click", function() {
     world_data = this.id;
 

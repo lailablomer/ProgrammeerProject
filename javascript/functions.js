@@ -495,11 +495,6 @@ function updateLabels(labels) {
         if(i > 0) {
             thisbb = this.getBoundingClientRect();
             prevbb = prev.getBoundingClientRect();
-
-            // if (i == 3){
-            //     thisbb = first;
-            //     prevbb = this.getBoundingClientRect()
-            // }
         }
 
         // move if they overlap

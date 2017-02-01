@@ -55,3 +55,5 @@ writeTable("CO2");
 
 // draw first molecule
 changeMolecule("CO2");
+
+$('.myModal').modal('toggle');

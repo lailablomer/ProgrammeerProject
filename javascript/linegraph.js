@@ -30,7 +30,8 @@ var yAxis = d3.svg.axis().scale(y)
 // define the line
 var gasline = d3.svg.line()
     .x(function(d) { return x(d.year); })
-    .y(function(d) { return y(d.Amount)});
+    .y(function(d) { return y(d.Amount)})
+    .interpolate("cardinal");
 
 // define div for graph
 d3.select("#multi_linegraph").append("div")

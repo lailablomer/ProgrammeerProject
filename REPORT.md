@@ -80,7 +80,7 @@ The first challenge I met was getting one single json format for all the data vi
 
 json for worldmap and piechart:
 
-{
+'''{
     "2011": {
         "DZA": {
             "GDP": "119774", 
@@ -107,10 +107,11 @@ json for worldmap and piechart:
         },
     ...... 
 }
+'''
 
 json for the linegraph:
 
-{
+'''{
     "DZA": [
         {
             "Country": "Algeria", 
@@ -134,6 +135,7 @@ json for the linegraph:
     "NLD" : [ ..... ],
     .....
 }
+'''
 
 One of the other challenges I came across was properly scaling my webpage. The different SVG elements did not scale with the page, so they would overlap and disort the visualizations. Eventually I fixed this problem by implementing bootstrap in my HTML code. The whole page in one row, which is split in two collumns. These collumns are again split in rows, and more collumns. This made the whole page scalable. It took me a long time to figure out the proper way to use Bootstrap, which delayed the process a lot. 
 

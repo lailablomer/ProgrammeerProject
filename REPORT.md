@@ -1,8 +1,8 @@
 # Report
-Laila Blömer </br>
-University of Amsterdam </br>
-studentID: 10563865 </br>
-Computer Science Fall 2017 </br>
+* Laila A. Blömer
+* University of Amsterdam
+* studentID: 10563865
+* Computer Science Fall 2017
 
 ## Introduction
 This computer science project shows the greenhouse gas (GHG) emission world wide in the period 1990 - 2012. The interactive visualisations enable the user to look at the specific gasses per country per year (in a piechart and table), to compare the gas emission with population size and gross domestic product, and to see the gas emission changing over time (in a linegraph). As an extra, additional information about the specific gasses is displayed in a table and molecule graph.

@@ -42,17 +42,6 @@ with open('../data/GHG_Emission.csv', 'rb') as input:
                 linegraph[key[1]].append({'Country': key[2], 'Gas': 'N2O', 'Amount': row[6], 'year': row[1]})
                 linegraph[key[1]].append({'Country': key[2], 'Gas': 'Rest', 'Amount': row[7], 'year': row[1]})
 
-        # add relative GHG emission to data_array
-        for keys in data_array.keys():
-            if row[24] == keys:
-                for countries in data_array[keys]:
-                    if data_array[keys][countries]['country'] == row[23]:
-                        if row[25] != '' and data_array[keys][countries]['GHG'] != '':
-                            relative = float(data_array[keys][countries]['GHG']) / float(row[25])
-
-                            data_array[keys][countries].update({'population': row[25],
-                                                                'GDP': row[27],
-                                                                'relative': relative * 1000000000})
 
 # write output files
 with open('data_file.json', 'w') as outfile:

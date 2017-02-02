@@ -20,7 +20,7 @@
     <script src="javascript/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container-fluid" id="container" style="max-width: 1540px;">
+	<div class="container-fluid" id="container">
 		<div class="row">
 			<header>
 				GREENHOUSE GAS EMISSIONS
@@ -94,7 +94,8 @@
 							<div class="row">
 								<div align="center" id="sources">
 									<i>Source: CAIT Climate Data Explorer. 2015. Washington, DC: World
-									Resources Institute.</i>
+									Resources Institute.</i><br>
+                                    <i>Made by: Laila Blömer</i>
 								</div>
 							</div>
 						</div>
@@ -102,97 +103,98 @@
 				</div>
 			</div>
 		</div>
-		<div class="row"></div>
-		<div class="row">
-			<div class="col-lg-7">
-				<div class="row" id="worlddata-row">
+		<div class="container-fluid" style="max-width: 1500px;">
+			<div class="row">
+				<div class="col-lg-7">
+					<div class="row" id="worlddata-row">
+						<div class="row">
+							<button class="button" id="GHG" type="button">Greenhouse Gases</button>
+							<button class="button" id="population" type="button">Population</button>
+							<button class="button" id="GDP" type="button">Gross Domestic
+							Product</button>
+						</div>
+						<div class="row" id="worlddata"></div>
+						<div class="row" id="slider"></div>
+					</div>
 					<div class="row">
-						<button class="button" id="GHG" type="button">Greenhouse Gases</button>
-						<button class="button" id="population" type="button">Population</button>
-						<button class="button" id="GDP" type="button">Gross Domestic
-						Product</button>
-					</div>
-					<div class="row" id="worlddata"></div>
-					<div class="row" id="slider"></div>
-				</div>
-				<div class="row">
-					<div id="multi_linegraph">
-						<h3 id="linegraph-title">Netherlands</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-5">
-				<div class="row" id="pie-row">
-					<div class="col-lg-6" id="pie"></div>
-					<div class="col-lg-6">
-						<div class="row">
-							<h3 id="country_name">Netherlands</h3>
-						</div>
-						<div class="row">
-							<table class="table" id="pie-table">
-								<tbody>
-									<tr>
-										<td class="first">Year</td>
-										<td class="second" id="year">-</td>
-									</tr>
-									<tr>
-										<td class="first">Population</td>
-										<td class="second" id="people">-</td>
-									</tr>
-									<tr>
-										<td class="first">GDP (USD)</td>
-										<td class="second" id="product">-</td>
-									</tr>
-									<tr>
-										<td class="first">Total Emission</td>
-										<td class="second" id="emission">-</td>
-									</tr>
-									<tr>
-										<td class="first" id="gas-title"></td>
-										<td class="second" id="gas"></td>
-									</tr>
-								</tbody>
-							</table>
+						<div id="multi_linegraph">
+							<h3 id="linegraph-title">Netherlands</h3>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div id="gas_info">
-						<div class="row">
-							<h3 id="title"></h3>
+				<div class="col-lg-5">
+					<div class="row" id="pie-row">
+						<div class="col-lg-6" id="pie"></div>
+						<div class="col-lg-6">
+							<div class="row">
+								<h3 id="country_name">Netherlands</h3>
+							</div>
+							<div class="row">
+								<table class="table" id="pie-table">
+									<tbody>
+										<tr>
+											<td class="first">Year</td>
+											<td class="second" id="year">-</td>
+										</tr>
+										<tr>
+											<td class="first">Population</td>
+											<td class="second" id="people">-</td>
+										</tr>
+										<tr>
+											<td class="first">GDP (USD)</td>
+											<td class="second" id="product">-</td>
+										</tr>
+										<tr>
+											<td class="first">Total Emission</td>
+											<td class="second" id="emission">-</td>
+										</tr>
+										<tr>
+											<td class="first" id="gas-title"></td>
+											<td class="second" id="gas"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
-						<div class="row">
-							<table class="table" id="gas-table">
-								<tbody>
-									<tr>
-										<td class="first">Chemical Formula</td>
-										<td class="second" id="formula">-</td>
-									</tr>
-									<tr>
-										<td class="first">Molecular Weight</td>
-										<td class="second" id="weight">-</td>
-									</tr>
-									<tr>
-										<td class="first">Properties</td>
-										<td class="second" id="properties">-</td>
-									</tr>
-									<tr>
-										<td class="first">Production</td>
-										<td class="second" id="production">-</td>
-									</tr>
-									<tr>
-										<td class="first">Uses</td>
-										<td class="second" id="uses">-</td>
-									</tr>
-									<tr>
-										<td class="first">Biological Role</td>
-										<td class="second" id="role">-</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="row">
-							<svg class="img-responsive" id="molecule"></svg>
+					</div>
+					<div class="row">
+						<div id="gas_info">
+							<div class="row">
+								<h3 id="title"></h3>
+							</div>
+							<div class="row">
+								<table class="table" id="gas-table">
+									<tbody>
+										<tr>
+											<td class="first">Chemical Formula</td>
+											<td class="second" id="formula">-</td>
+										</tr>
+										<tr>
+											<td class="first">Molecular Weight</td>
+											<td class="second" id="weight">-</td>
+										</tr>
+										<tr>
+											<td class="first">Properties</td>
+											<td class="second" id="properties">-</td>
+										</tr>
+										<tr>
+											<td class="first">Production</td>
+											<td class="second" id="production">-</td>
+										</tr>
+										<tr>
+											<td class="first">Uses</td>
+											<td class="second" id="uses">-</td>
+										</tr>
+										<tr>
+											<td class="first">Biological Role</td>
+											<td class="second" id="role">-</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row">
+								<svg class="img-responsive" id="molecule"></svg>
+							</div>
 						</div>
 					</div>
 				</div>

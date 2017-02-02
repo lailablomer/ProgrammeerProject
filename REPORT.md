@@ -111,8 +111,7 @@ json for worldmap and piechart:
 
 json for the linegraph:
 
-'code()'
-var json = 
+```javascript
 {
     "DZA": [
         {
@@ -137,7 +136,6 @@ var json =
     "NLD" : [ ..... ],
     .....
 }
-```javascript
 ```
 
 One of the other challenges I came across was properly scaling my webpage. The different SVG elements did not scale with the page, so they would overlap and disort the visualizations. Eventually I fixed this problem by implementing bootstrap in my HTML code. The whole page in one row, which is split in two collumns. These collumns are again split in rows, and more collumns. This made the whole page scalable. It took me a long time to figure out the proper way to use Bootstrap, which delayed the process a lot. 

@@ -76,3 +76,67 @@ External libraries used, all local copies:
 Local copies have the advantage that they still work even when your network is down. The downside is that they take memory. Because I worked on the project also without WiFi I needed local copies of the used libraries. 
 
 ## Challenges
+The first challenge I met was getting one single json format for all the data visualizations. I ended up using two json formats; one with year as the first key, because the worldmap and piechart display data for one year, and one with country as key, for the linegraph. Also the linegraph json was fit for datanesting by gas, which the json for the worldmap and piechart is not.
+
+json for worldmap and piechart:
+
+{
+    "2011": {
+        "DZA": {
+            "GDP": "119774", 
+            "CO2": "120.9085", 
+            "N2O": "5.9584", 
+            "country": "Algeria", 
+            "Rest": "3.5769", 
+            "GHG": "173.9844354", 
+            "CH4": "43.5407", 
+            "population": "37762962"
+        }, 
+        "AGO": {
+            "GDP": "52345", 
+            "CO2": "29.2168", 
+            "N2O": "17.6816", 
+            "country": "Angola", 
+            "Rest": "0.108", 
+            "GHG": "150.7501341", 
+            "CH4": "103.7437", 
+            "population": "20180490"
+        }, ...... ,
+    "2012": {
+        ......
+        },
+    ...... 
+}
+
+json for the linegraph:
+
+{
+    "DZA": [
+        {
+            "Country": "Algeria", 
+            "Amount": "69.5996", 
+            "Gas": "CO2", 
+            "year": "1990"
+        }, 
+        {
+            "Country": "Algeria", 
+            "Amount": "18.3924", 
+            "Gas": "CH4", 
+            "year": "1990"
+        }, 
+        {
+            "Country": "Algeria", 
+            "Amount": "4.2358", 
+            "Gas": "N2O", 
+            "year": "1990"
+        }, 
+        { ..... }],
+    "NLD" : [ ..... ],
+    .....
+}
+
+One of the other challenges I came across was properly scaling my webpage. The different SVG elements did not scale with the page, so they would overlap and disort the visualizations. Eventually I fixed this problem by implementing bootstrap in my HTML code. The whole page in one row, which is split in two collumns. These collumns are again split in rows, and more collumns. This made the whole page scalable. It took me a long time to figure out the proper way to use Bootstrap, which delayed the process a lot. 
+
+Another challenge I faced was properly colouring my worldmap, as well as the worldmap-legend. For my worldmap I use three different colorcodings for the GHG emission fill, the population size fill and the GDP fill. Colouring the worldmap with fillKeys did not work so well, because you define the colors corresponding to the fillKey in your Datamap variable. These colors cannot be changed after initializing them once. Therefore, I used the fillColor tool to reset the fillColor every time a button was clicked. This however made it more difficult to properly display the worldmap-legend, because the legend is put together using the fillKeys. This was easily solved my giving my data array a fillKey as well as a fillColor. The fillColor took care of the choropleth of the worldmap, the fillKey of the right legend labels. The labels of the legend can be changed according to the fillKey, but the color of the legend cannot. I solved this by removing the legend after each button-click, re-calling the legend with different legend labels, and selecting the rectangles displaying the color of the legend using D3 and changing each one of them. 
+
+

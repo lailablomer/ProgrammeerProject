@@ -65,3 +65,6 @@ Cleaning up code, and checking with Better Code Hub:
 * Writing simpler pieces of code
 * Writing shorter pieces of code
 * Cleaning up repository
+
+# day 18
+Writing report! 

@@ -84,27 +84,27 @@ json for worldmap and piechart:
     "2011": {
        "DZA": {
            "GDP": "119774", 
-            "CO2": "120.9085", 
-            "N2O": "5.9584", 
-            "country": "Algeria", 
+           "CO2": "120.9085", 
+           "N2O": "5.9584", 
+           "country": "Algeria", 
            "Rest": "3.5769", 
-            "GHG": "173.9844354", 
-            "CH4": "43.5407", 
-            "population": "37762962"
+           "GHG": "173.9844354", 
+           "CH4": "43.5407", 
+           "population": "37762962"
        }, 
-      "AGO": {
+       "AGO": {
            "GDP": "52345", 
            "CO2": "29.2168", 
-            "N2O": "17.6816", 
-            "country": "Angola", 
+           "N2O": "17.6816", 
+           "country": "Angola", 
            "Rest": "0.108", 
-            "GHG": "150.7501341", 
+           "GHG": "150.7501341", 
            "CH4": "103.7437", 
            "population": "20180490"
-        }, ...... ,
+       }, ...... ,
     "2012": 
-        {
-        ......
+       {
+           ......
        },
     ...... 
 }
@@ -143,4 +143,10 @@ One of the other challenges I came across was properly scaling my webpage. The d
 
 Another challenge I faced was properly colouring my worldmap, as well as the worldmap-legend. For my worldmap I use three different colorcodings for the GHG emission fill, the population size fill and the GDP fill. Colouring the worldmap with fillKeys did not work so well, because you define the colors corresponding to the fillKey in your Datamap variable. These colors cannot be changed after initializing them once. Therefore, I used the fillColor tool to reset the fillColor every time a button was clicked. This however made it more difficult to properly display the worldmap-legend, because the legend is put together using the fillKeys. This was easily solved my giving my data array a fillKey as well as a fillColor. The fillColor took care of the choropleth of the worldmap, the fillKey of the right legend labels. The labels of the legend can be changed according to the fillKey, but the color of the legend cannot. I solved this by removing the legend after each button-click, re-calling the legend with different legend labels, and selecting the rectangles displaying the color of the legend using D3 and changing each one of them. 
 
+### Discussion
+For my data I choose a subject I knew would be used by other students as well. However, I did this knowing enough data would be available to visualize. Instead of spending a lot of time looking for data or formatting the data to proper json, I put all my efford in the visualizations itself. Being creative with the data itself for this project is more important I think than the uniqueness of that data.
 
+The visualizations in general meet most of what I wanted to visualize. My sollution to the worldmap-legend problem is not ideal, because deleting an element and re-drawing it is not good practice. However, I could not find any other way to solve the problem, and a legend is a vital part of every visualization. Also the scaling worked out well. I set the bootstrap up to scale the page preserving the height and width ratio. This results in the page scaling evenly, without large empty spaces between the scaled graphs. 
+
+## Conclusion
+The ideal situation would be to be able to not only display the absolute GHG emission compared to population size and gross domestic product, but also the relative GHG emission to population or GDP. This would make the visualisation more complete. Also, I would have liked to add an interactive element to the linegraph, that clicking the linegraph alters the displayed year in the worldmap and piechart. 

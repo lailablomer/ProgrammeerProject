@@ -42,13 +42,18 @@ All visualisations are in D3 v3. Most of the styling is included in the css fold
 
 ### Acknowledgements
 
-* d3.slider javascript and css files              - Copyright (c) 2013, Bjorn Sandvik - http://blog.thematicmapping.org
-* Bootstrap v3.3.7 (http://getbootstrap.com)      - Copyright 2011-2016 Twitter, Inc.
-* /javascript/jquery-3.1.1.min.js                 - Copyright (c) JS Foundation - https://js.foundation/pdf/ip-policy.pdf
-* Greenhouse Gas Emission data                    - CAIT Climate Data Explorer. 2015. Washington, DC: World Resources Institute.
+* [CDNJS](https://cdnjs.com/)
+  * [d3.min.js](http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js)
+  * [datamaps.world.js](https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.4.4/datamaps.world.js)
+  * [topojson.min.js](http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js)
+* d3.slider javascript and css files > Copyright (c) 2013, [Bjorn Sandvik](http://blog.thematicmapping.org)
+* [Bootstrap v3.3.7](http://getbootstrap.com) > Copyright 2011-2016 Twitter, Inc.
+* /javascript/jquery-3.1.1.min.js > Copyright (c) [JS Foundation](https://js.foundation/pdf/ip-policy.pdf)
+* Greenhouse Gas Emission data > CAIT Climate Data Explorer. 2015. Washington, DC: World Resources Institute
 
+Special thanks to Martijn, Gosia, Tim, Bas and Sascha for all their help during those long afternoons filled with programming!
 
 ![BCH compliance](https://bettercodehub.com/edge/badge/lailablomer/ProgrammeerProject)
 
 
-Copyright (c) 2017 lailablomer
+[Copyright (c) 2017 lailablomer](https://lailablomer.github.io/ProgrammeerProject/)

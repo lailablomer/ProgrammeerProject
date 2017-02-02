@@ -79,35 +79,36 @@ Local copies have the advantage that they still work even when your network is d
 The first challenge I met was getting one single json format for all the data visualizations. I ended up using two json formats; one with year as the first key, because the worldmap and piechart display data for one year, and one with country as key, for the linegraph. Also the linegraph json was fit for datanesting by gas, which the json for the worldmap and piechart is not.
 
 json for worldmap and piechart:
-
+```javascript
 {
->    "2011": {
->>        "DZA": {
->>>            "GDP": "119774", 
->>>            "CO2": "120.9085", 
->>>            "N2O": "5.9584", 
->>>            "country": "Algeria", 
->>>            "Rest": "3.5769", 
->>>            "GHG": "173.9844354", 
->>>            "CH4": "43.5407", 
->>>            "population": "37762962"
->>        }, 
->>        "AGO": {
->>>            "GDP": "52345", 
->>>            "CO2": "29.2168", 
->>>            "N2O": "17.6816", 
->>>            "country": "Angola", 
->>>            "Rest": "0.108", 
->>>            "GHG": "150.7501341", 
->>>            "CH4": "103.7437", 
->>>            "population": "20180490"
->>        }, ...... ,
->    "2012": 
->>         {
->>>        ......
->>        },
->    ...... 
+    "2011": {
+       "DZA": {
+           "GDP": "119774", 
+            "CO2": "120.9085", 
+            "N2O": "5.9584", 
+            "country": "Algeria", 
+           "Rest": "3.5769", 
+            "GHG": "173.9844354", 
+            "CH4": "43.5407", 
+            "population": "37762962"
+       }, 
+      "AGO": {
+           "GDP": "52345", 
+           "CO2": "29.2168", 
+            "N2O": "17.6816", 
+            "country": "Angola", 
+           "Rest": "0.108", 
+            "GHG": "150.7501341", 
+           "CH4": "103.7437", 
+           "population": "20180490"
+        }, ...... ,
+    "2012": 
+        {
+        ......
+       },
+    ...... 
 }
+```
 
 json for the linegraph:
 

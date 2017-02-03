@@ -27,6 +27,8 @@ function drawWorldMap(id, year) {
             legend = legend_total[2];
         }
 
+        console.log(data);
+
         // change fillKeys and fillColors
         setFillKey(data, id);
 

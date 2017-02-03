@@ -11,7 +11,7 @@ from countrycodes import *
 data_array = {}
 linegraph = {}
 
-with open('../data/GHG_Emission.csv', 'rb') as input:
+with open('GHG_Emission.csv', 'rb') as input:
     workbook_GHG = csv.reader(input, delimiter=',')
     for row in workbook_GHG:
 
@@ -42,6 +42,12 @@ with open('../data/GHG_Emission.csv', 'rb') as input:
                 linegraph[key[1]].append({'Country': key[2], 'Gas': 'N2O', 'Amount': row[6], 'year': row[1]})
                 linegraph[key[1]].append({'Country': key[2], 'Gas': 'Rest', 'Amount': row[7], 'year': row[1]})
 
+        # add population and GDP to data array
+        for keys in data_array.keys():
+            if row[24] == keys:
+                for countries in data_array[keys]:
+                    if data_array[keys][countries]['country'] == row[23]:
+                        data_array[keys][countries].update({'population': row[25], 'GDP': row[27]})
 
 # write output files
 with open('data_file.json', 'w') as outfile:
